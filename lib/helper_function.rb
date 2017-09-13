@@ -7,6 +7,25 @@ module HelperFunctions
     end
   end
 
+  def return_matype(val, val_string)
+    check_argument(["0", "1", "2", "3", "4", "5", "6", "7", "8", "SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "T3", "KAMA", "MAMA"], val)
+    hash = {"SMA" => "0", "EMA" => "1", "WMA" => "2", "DEMA" => "3",
+      "TEMA" => "4", "TRIMA" => "5", "T3" => "6", "KAMA" => "7", "MAMA" => "8"}
+    val = hash[val] unless hash[val].nil?
+    return "&#{val_string}=#{val}"
+  end
+
+  def return_int_val(val, val_string, type="integer")
+    value = case type
+    when "integer"
+      val.to_i
+    when "float"
+      val.to_f
+    end
+    raise "Error: #{val_string} is not a correct positive #{type}" if value.to_s != val || value <= 0
+    return "&#{val_string}=#{val}"
+  end
+
   def request(url)
     base_uri = "https://www.alphavantage.co"
     begin

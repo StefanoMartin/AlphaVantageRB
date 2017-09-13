@@ -1,6 +1,7 @@
 require 'open-uri'
 require_relative "helper_function"
 require_relative "Timeseries"
+require_relative "Function"
 
 module Alphavantage
   class AV
@@ -9,7 +10,9 @@ module Alphavantage
     base_uri 'https://www.alphavantage.co'
 
     def self.key=(key)
-      $apikey = key
+      @@apikey = key
+      Alphavantage::Timeseries.key = key
+      Alphavantage::Function.key = key
     end
 
     def initialize symbol:

@@ -1,6 +1,10 @@
 module Alphavantage
   class Timeseries
     include HelperFunctions
+    def self.key=(key)
+      @@apikey = key
+    end
+
     def initialize type: "daily", interval: nil, outputsize: "compact", symbol:, datatype: "json", file: nil
       if type == "intraday"
         check_argument(["1min", "5min", "15min", "30min", "60min"], interval)
@@ -18,7 +22,7 @@ module Alphavantage
       end
 
       @selected_time_series = which_series(type)
-      url = "query?function=#{@selected_time_series}&symbol=#{symbol}#{interval}&outputsize=#{outputsize}&apikey=#{$apikey}"
+      url = "query?function=#{@selected_time_series}&symbol=#{symbol}#{interval}&outputsize=#{outputsize}&apikey=#{@@apikey}"
       return download(url, file) if datatype == "csv"
       @hash = request(url)
       metadata = hash.dig("Meta Data") || {}
