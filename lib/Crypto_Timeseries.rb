@@ -1,21 +1,9 @@
 module Alphavantage
-  class Timeseries
+  class Crypto_Timeseries
     include HelperFunctions
 
-    def initialize type: "intraday", interval: nil, outputsize: "compact",
-      symbol:, datatype: "json", file: nil, key:, verbose: false,
-      adjusted: false
+    def initialize type: "intraday", market:, symbol:, datatype: "json", file: nil, key:, verbose: false
       @client = return_client(key, verbose)
-      if type == "intraday"
-        interval ||= "1min"
-        check_argument(["1min", "5min", "15min", "30min", "60min"], interval, "interval")
-        check_argument([false], adjusted, "adjusted")
-        interval = "&interval=#{interval}"
-      else
-        check_argument([nil], interval, "interval")
-        interval = ""
-      end
-      check_argument(["compact", "full"], outputsize, "outputsize")
       check_argument(["json", "csv"], datatype, "datatype")
       if datatype == "csv" && file.nil?
         raise Alphavantage::Error.new message: "No file specified where to save the CSV ata"
@@ -23,8 +11,8 @@ module Alphavantage
         raise Alphavantage::Error.new message: "Hash error: No file necessary"
       end
 
-      @selected_time_series = which_series(type, adjusted)
-      url = "query?function=#{@selected_time_series}&symbol=#{symbol}#{interval}&outputsize=#{outputsize}"
+      @selected_time_series = which_series(type)
+      url = "query?function=#{@selected_time_series}&symbol=#{symbol}&market=#{market}"
       return @client.download(url, file) if datatype == "csv"
       @hash = @client.request(url)
       metadata = hash.dig("Meta Data") || {}
@@ -34,6 +22,9 @@ module Alphavantage
           return val
         end
       end
+      @open = []; @high = []; @low = []; @close = []; @volume = [];
+      @open_usd = []; @high_usd = []; @low_usd = []; @close_usd = [];
+      @market_cap_usd = [];
 
       begin
         time_series = hash.find{|key, val| key.include?("Time Series")}[1]
@@ -44,7 +35,18 @@ module Alphavantage
       series = {}
       convert_key = {}
       time_series.values[0].keys.each do |key|
-        key_sym = key.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_").to_sym
+        key_sym = key.split(" ")
+        key_sym.shift
+        key_sym = key_sym.join("_")
+        key_sym = key_sym.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_")
+        key_sym = key_sym.split("_")
+        if key_sym[-1] == "(usd)"
+          key_sym[-1] = "usd"
+        elsif key_sym[-1].include?("(") && key_sym[-1].include?(")")
+          key_sym.pop
+        end
+        key_sym = key_sym.join("_")
+        key_sym = key_sym.to_sym
         series[key_sym] = []
         convert_key[key] = key_sym
       end
@@ -63,11 +65,10 @@ module Alphavantage
 
     attr_reader :hash
 
-    def which_series(type, adjusted)
+    def which_series(type)
       check_argument(["intraday", "daily", "weekly", "monthly"], type, "type")
-      series = "TIME_SERIES_"
+      series = "DIGITAL_CURRENCY_"
       series += type.upcase
-      series += "_ADJUSTED" if adjusted
       return series
     end
   end

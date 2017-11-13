@@ -1,9 +1,9 @@
-require "httparty"
-
 module HelperFunctions
-  def check_argument(list, value)
+  def check_argument(list, value, attribute)
     unless list.include? value
-      raise ArgumentError, "Only #{list.join(", ")} are supported"
+      list.each{|l| l = "nil" if l.nil?}
+      raise Alphavantage::Error.new message: "Only #{list.join(", ")} are supported for #{attribute}", data: {"list_valid" => list, "wrong_value" => value,
+          "wrong_attribute" => attribute}
     end
   end
 
@@ -22,37 +22,31 @@ module HelperFunctions
     when "float"
       val.to_f
     end
-    raise "Error: #{val_string} is not a correct positive #{type}" if value.to_s != val || value <= 0
+    if value.to_s != val || value <= 0
+      Alphavantage::Error.new message: "Error: #{val_string} is not a correct positive #{type}"
+    end
     return "&#{val_string}=#{val}"
   end
 
-  def request(url)
-    base_uri = "https://www.alphavantage.co"
-    begin
-      response = HTTParty.get("#{base_uri}/#{url}")
-    rescue Exception => e
-      raise "HTTParty ERROR: #{e.message}"
+  def return_client(key, verbose=false)
+    if key.is_a?(String)
+      client = Alphavantage::Client.new key: key, verbose: verbose
+    elsif key.is_a?(Alphavantage::Client)
+      client = key
+    else
+      raise Alphavantage::Error.new message: "Key should be a string"
     end
-    data = response.body
-    begin
-      data = JSON.parse(data)
-    rescue Exception => e
-      raise "JSON error: #{e.message}"
-    end
-    unless data["Error Message"].nil?
-      raise "ALPHAVANTAGE ERROR: #{data["Error Message"]}"
-    end
-    return data
+    return client
   end
 
-  def download(url, file)
-    begin
-      uri = URI.parse("https://www.alphavantage.co/#{url}&datatype=csv")
-      uri.open{|csv| IO.copy_stream(csv, file)}
+  def return_value(hash, val)
+    return hash.find{|key, value| key.include?(val)}&.dig(1)
+  end
 
-    rescue Exception => e
-      raise "CSV Error: No csv created #{e.message}"
-    end
-    return "CSV saved in #{file}"
+  def return_series(series, order)
+    order ||= "desc"
+    check_argument(["asc", "desc"], order, "order")
+    return series.sort_by{ |hsh| hsh[0]} if order == "asc"
+    return series
   end
 end

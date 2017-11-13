@@ -1,9 +1,6 @@
 module Alphavantage
   class Function
     include HelperFunctions
-    def self.key=(key)
-      @@apikey = key
-    end
 
     def initialize function:, symbol:, interval: "1min", time_period: "60",
       series_type: "close", fastlimit: "0.01", slowlimit: "0.01",
@@ -13,12 +10,13 @@ module Alphavantage
       slowkmatype: "0", slowdmatype: "0", fastdperiod: "3",
       fastdmatype: "0", matype: "0", timeperiod1: "7", timeperiod2: "14",
       timeperiod3: "28", nbdevup: "2", nbdevdn: "2", acceleration: "0.01",
-      maximum: "0.20"
+      maximum: "0.20", key:, verbose: false
+      @client = return_client(key, verbose)
       check_argument(["SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "KAMA", "T3",
         "RSI","MAMA", "MACD", "MACDEXT", "STOCH", "STOCHF", "STOCHRSI", "WILLR",
         "ADX", "ADXR", "APO", "PPO", "MOM", "BOP", "CCI", "CMO", "ROC", "ROCR",
         "AROON", "AROONOSC", "MFI", "TRIX", "ULTOSC", "DX", "MINUS_DI",
-        "PLUS_DI", "MINUS_DM", "PLUS_DM", "BBANDS", "MIDPOINT", "MIDPRICE"
+        "PLUS_DI", "MINUS_DM", "PLUS_DM", "BBANDS", "MIDPOINT", "MIDPRICE",
         "SAR", "TRANGE", "ATR", "NATR", "AD", "ADOSC", "OBV", "HT_SINE",
         "HT_TRENDLINE", "HT_TRENDMODE", "HT_DCPERIOD", "HT_DCPHASE",
         "HT_PHASOR"], function)
@@ -28,7 +26,7 @@ module Alphavantage
         "MAMA", "MACD", "MACDEXT", "STOCH", "STOCHF", "STOCHRSI", "WILLR",
         "ADX", "ADXR", "APO", "PPO", "MOM", "BOP", "CCI", "CMO", "ROC", "ROCR",
         "AROON", "AROONOSC", "MFI", "TRIX", "ULTOSC", "DX", "MINUS_DI",
-        "PLUS_DI", "MINUS_DM", "PLUS_DM", "BBANDS", "MIDPOINT", "MIDPRICE"
+        "PLUS_DI", "MINUS_DM", "PLUS_DM", "BBANDS", "MIDPOINT", "MIDPRICE",
         "SAR", "TRANGE", "ATR", "NATR", "AD", "ADOSC", "OBV", "HT_SINE",
         "HT_TRENDLINE", "HT_TRENDMODE", "HT_DCPERIOD", "HT_DCPHASE",
         "HT_PHASOR"].include? function
@@ -95,24 +93,42 @@ module Alphavantage
         url += return_numval(acceleration, "acceleration", "float")
         url += return_numval(maximum, "maximum", "float")
       end
-      url += "&apikey=#{@@apikey}"
 
-      @hash = request(url)
+      @hash = @client.request(url)
       metadata = hash.dig("Meta Data") || {}
       metadata.each do |key, val|
-        if key.include?("Indicator")
-          @indicator = val
-        elsif key.include?("Symbol")
-          @symbol = val
-        elsif key.include?("Last Refreshed")
-          @last_refreshed = val
-        elsif key.include?("Interval")
-          @interval = val
-        elsif key.include?("Time Period")
-          @time_period = val
-        elsif key.include?("Series Type")
-          @series_type = val
-        elsif key.include?("Time Zone")
-          @timezone = val
+        key_sym = key.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_").to_sym
+        define_singleton_method(key_sym) do
+          return val
         end
       end
+
+      begin
+        time_series = hash.find{|key, val| key.include?("Technical Analysis")}[1]
+      rescue Exception => e
+        raise Alphavantage::Error.new message: "No Time Series found", error: e.message
+      end
+
+      series = {}
+      convert_key = {}
+      time_series.values[0].keys.each do |key|
+        key_sym = key.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_").to_sym
+        series[key_sym] = []
+        convert_key[key] = key_sym
+      end
+      time_series.each do |time, ts_hash|
+        ts_hash.each do |key, value|
+          series[convert_key[key]] << [time, value]
+        end
+      end
+      series.keys.each do |key_sym|
+        define_singleton_method(key_sym) do |*args|
+          args ||= []
+          return return_series(series[key_sym], args[0])
+        end
+      end
+    end
+
+    attr_reader :hash
+  end
+end
