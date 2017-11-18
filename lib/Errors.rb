@@ -1,10 +1,9 @@
 module Alphavantage
   class Error < StandardError
-    def initialize(message: "Error in parsing JSON", data: nil, error: nil)
-      @error = error
+    def initialize(message: , data: nil)
       @data = data
       super(message)
     end
-    attr_reader :data, :error
+    attr_reader :data
   end
 end

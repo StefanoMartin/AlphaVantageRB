@@ -3,6 +3,7 @@ module Alphavantage
     include HelperFunctions
 
     def initialize symbol:, datatype: "json", key:, verbose: false, market:
+      check_argument([true, false], verbose, "verbose")
       @client = return_client(key, verbose)
       @symbol = symbol
       @market = market

@@ -3,6 +3,7 @@ module Alphavantage
     include HelperFunctions
 
     def initialize symbol:, datatype: "json", key:, verbose: false
+      check_argument([true, false], verbose, "verbose")
       @client = return_client(key, verbose)
       @symbol = symbol
       @datatype = datatype
@@ -16,8 +17,8 @@ module Alphavantage
       @datatype = datatype
     end
 
-    def timeseries type: "intraday", interval: nil, outputsize: "compact", file: nil,
-        datatype: @datatype, adjusted: false
+    def timeseries type: "intraday", interval: nil, outputsize: "compact",
+      file: nil, datatype: @datatype, adjusted: false
       Alphavantage::Timeseries.new type: type, interval: interval,
         outputsize: outputsize, symbol: @symbol, datatype: datatype, file: file,
         key: @client, adjusted: adjusted

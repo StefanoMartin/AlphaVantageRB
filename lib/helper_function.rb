@@ -2,8 +2,8 @@ module HelperFunctions
   def check_argument(list, value, attribute)
     unless list.include? value
       list.each{|l| l = "nil" if l.nil?}
-      raise Alphavantage::Error.new message: "Only #{list.join(", ")} are supported for #{attribute}", data: {"list_valid" => list, "wrong_value" => value,
-          "wrong_attribute" => attribute}
+      raise Alphavantage::Error.new message: "Only #{list.join(", ")} are supported for #{attribute}",
+        data: {"list_valid" => list, "wrong_value" => value, "wrong_attribute" => attribute}
     end
   end
 

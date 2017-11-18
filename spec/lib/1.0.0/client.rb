@@ -1,6 +1,4 @@
 require_relative './../../spec_helper'
-require "openssl"
-OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 describe Alphavantage::Client do
   context "#new" do

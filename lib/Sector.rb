@@ -3,9 +3,10 @@ module Alphavantage
     include HelperFunctions
 
     def initialize key:, verbose: false
+      check_argument([true, false], verbose, "verbose")
       @client = return_client(key, verbose)
-      @hash = @client.request("query?function=SECTOR")
-      metadata = hash.dig("Meta Data") || {}
+      @hash = @client.request("function=SECTOR")
+      metadata = @hash.dig("Meta Data") || {}
       metadata.each do |key, val|
         key_sym = key.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_").to_sym
         define_singleton_method(key_sym) do

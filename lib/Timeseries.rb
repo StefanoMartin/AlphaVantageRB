@@ -5,6 +5,7 @@ module Alphavantage
     def initialize type: "intraday", interval: nil, outputsize: "compact",
       symbol:, datatype: "json", file: nil, key:, verbose: false,
       adjusted: false
+      check_argument([true, false], verbose, "verbose")
       @client = return_client(key, verbose)
       if type == "intraday"
         interval ||= "1min"
@@ -24,10 +25,10 @@ module Alphavantage
       end
 
       @selected_time_series = which_series(type, adjusted)
-      url = "query?function=#{@selected_time_series}&symbol=#{symbol}#{interval}&outputsize=#{outputsize}"
+      url = "function=#{@selected_time_series}&symbol=#{symbol}#{interval}&outputsize=#{outputsize}"
       return @client.download(url, file) if datatype == "csv"
       @hash = @client.request(url)
-      metadata = hash.dig("Meta Data") || {}
+      metadata = @hash.dig("Meta Data") || {}
       metadata.each do |key, val|
         key_sym = key.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_").to_sym
         define_singleton_method(key_sym) do
@@ -36,9 +37,10 @@ module Alphavantage
       end
 
       begin
-        time_series = hash.find{|key, val| key.include?("Time Series")}[1]
+        time_series = @hash.find{|key, val| key.include?("Time Series")}[1]
       rescue Exception => e
-        raise Alphavantage::Error.new message: "No Time Series found", error: e.message
+        raise Alphavantage::Error.new message: "No Time Series found: #{e.message}",
+          data: @hash
       end
 
       series = {}

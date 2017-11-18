@@ -2,20 +2,22 @@ module Alphavantage
   class Crypto_Timeseries
     include HelperFunctions
 
-    def initialize type: "intraday", market:, symbol:, datatype: "json", file: nil, key:, verbose: false
+    def initialize type: "intraday", market:, symbol:, datatype: "json", file: nil,
+      key:, verbose: false
+      check_argument([true, false], verbose, "verbose")
       @client = return_client(key, verbose)
       check_argument(["json", "csv"], datatype, "datatype")
       if datatype == "csv" && file.nil?
-        raise Alphavantage::Error.new message: "No file specified where to save the CSV ata"
+        raise Alphavantage::Error.new message: "No file specified where to save the CSV data"
       elsif datatype != "csv" && !file.nil?
         raise Alphavantage::Error.new message: "Hash error: No file necessary"
       end
 
       @selected_time_series = which_series(type)
-      url = "query?function=#{@selected_time_series}&symbol=#{symbol}&market=#{market}"
+      url = "function=#{@selected_time_series}&symbol=#{symbol}&market=#{market}"
       return @client.download(url, file) if datatype == "csv"
       @hash = @client.request(url)
-      metadata = hash.dig("Meta Data") || {}
+      metadata = @hash.dig("Meta Data") || {}
       metadata.each do |key, val|
         key_sym = key.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_").to_sym
         define_singleton_method(key_sym) do
@@ -27,9 +29,10 @@ module Alphavantage
       @market_cap_usd = [];
 
       begin
-        time_series = hash.find{|key, val| key.include?("Time Series")}[1]
+        time_series = @hash.find{|key, val| key.include?("Time Series")}[1]
       rescue Exception => e
-        raise Alphavantage::Error.new message: "No Time Series found", error: e.message
+        raise Alphavantage::Error.new message: "No Time Series found: #{e.message}",
+          data: @hash
       end
 
       series = {}

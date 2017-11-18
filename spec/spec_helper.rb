@@ -1,6 +1,8 @@
 require "rspec"
 require "pry-byebug"
 require "yaml"
+require "openssl"
+OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 require_relative File.expand_path('../../lib/alphavantage', __FILE__)
 
 RSpec.configure do |config|

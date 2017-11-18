@@ -1,17 +1,14 @@
 require_relative './../../spec_helper'
-require "openssl"
-OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 describe Alphavantage::Crypto_Timeseries do
   context "#new" do
     it "create a new timeseries without stock" do
-      stock = Alphavantage::Crypto_Timeseries.new symbol: "BTC", key: @config["key"],
-        verbose: true, market: "DKK", type: "daily"
+      stock = Alphavantage::Crypto_Timeseries.new symbol: "BTC", key: @config["key"], verbose: true, market: "DKK", type: "daily"
       expect(stock.class).to eq Alphavantage::Crypto_Timeseries
     end
 
     it "create a new stock from stock" do
-      timeseries = @client.crypto(symbol: "BTC", market: "DKK").timeseries
+      timeseries = @client.crypto(symbol: "BTC", market: "DKK").timeseries(type: "monthly")
       expect(timeseries.class).to eq Alphavantage::Crypto_Timeseries
     end
 
@@ -52,8 +49,7 @@ describe Alphavantage::Crypto_Timeseries do
     it "cannot retrieve with wrong symbol" do
       error = false
       begin
-        stock = Alphavantage::Crypto_Timeseries.new symbol: "wrong_symbol",
-          key: @config["key"], market: "DKK", type: "daily"
+        stock = Alphavantage::Crypto_Timeseries.new symbol: "wrong_symbol", key: @config["key"], market: "DKK", type: "daily"
       rescue Alphavantage::Error => e
         error = true
       end

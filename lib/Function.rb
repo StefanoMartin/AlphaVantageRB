@@ -11,6 +11,7 @@ module Alphavantage
       fastdmatype: "0", matype: "0", timeperiod1: "7", timeperiod2: "14",
       timeperiod3: "28", nbdevup: "2", nbdevdn: "2", acceleration: "0.01",
       maximum: "0.20", key:, verbose: false
+      check_argument([true, false], verbose, "verbose")
       @client = return_client(key, verbose)
       check_argument(["SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "KAMA", "T3",
         "RSI","MAMA", "MACD", "MACDEXT", "STOCH", "STOCHF", "STOCHRSI", "WILLR",
@@ -20,7 +21,7 @@ module Alphavantage
         "SAR", "TRANGE", "ATR", "NATR", "AD", "ADOSC", "OBV", "HT_SINE",
         "HT_TRENDLINE", "HT_TRENDMODE", "HT_DCPERIOD", "HT_DCPHASE",
         "HT_PHASOR"], function)
-      url = "query?function=#{function}&symbol=#{symbol}"
+      url = "function=#{function}&symbol=#{symbol}"
 
       if ["SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "KAMA", "T3", "RSI",
         "MAMA", "MACD", "MACDEXT", "STOCH", "STOCHF", "STOCHRSI", "WILLR",
@@ -95,7 +96,7 @@ module Alphavantage
       end
 
       @hash = @client.request(url)
-      metadata = hash.dig("Meta Data") || {}
+      metadata = @hash.dig("Meta Data") || {}
       metadata.each do |key, val|
         key_sym = key.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_").to_sym
         define_singleton_method(key_sym) do
@@ -104,9 +105,10 @@ module Alphavantage
       end
 
       begin
-        time_series = hash.find{|key, val| key.include?("Technical Analysis")}[1]
+        time_series = @hash.find{|key, val| key.include?("Technical Analysis")}[1]
       rescue Exception => e
-        raise Alphavantage::Error.new message: "No Time Series found", error: e.message
+        raise Alphavantage::Error.new message: "No Time Series found: #{e.message}",
+          data: @hash
       end
 
       series = {}

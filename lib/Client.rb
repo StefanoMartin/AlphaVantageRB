@@ -3,9 +3,9 @@ module Alphavantage
     include HelperFunctions
 
     def initialize key:, verbose: false
+      check_argument([true, false], verbose, "verbose")
       @apikey = key
       @base_uri = 'https://www.alphavantage.co'
-      check_argument([true, false], verbose, "verbose")
       @verbose = verbose
     end
 
@@ -17,34 +17,36 @@ module Alphavantage
     end
 
     def request(url)
+      send_url = "#{@base_uri}/query?#{url}&apikey=#{@apikey}"
+      puts "\n#{send_url}\n" if @verbose
       begin
-        puts url if @verbose
-        response = HTTParty.get("#{@base_uri}/#{url}&apikey=#{@apikey}")
+        response = HTTParty.get(send_url)
       rescue Exception => e
-        raise Alphavantage::Error.new message: "Failed request", error: e.message
+        raise Alphavantage::Error.new message: "Failed request: #{e.message}"
       end
       data = response.body
       begin
         data = JSON.parse(data)
       rescue Exception => e
         raise Alphavantage::Error.new message: "Parsing failed",
-          error: e.message, data: data
+          data: data
       end
-      unless data["Error Message"].nil?
-        raise Alphavantage::Error.new message: "Failed to retrieve data",
-          error: data["Error Message"], data: data
+      if !data["Error Message"].nil?
+        raise Alphavantage::Error.new message:  data["Error Message"], data: data
+      elsif !data["Information"].nil?
+        raise Alphavantage::Error.new message: data["Information"], data: data
       end
       return data
     end
 
     def download(url, file)
+      send_url = "#{@base_uri}/query?#{url}&datatype=csv&apikey=#{@apikey}"
       begin
-        puts url if @verbose
-        uri = URI.parse("#{@base_uri}/#{url}&datatype=csv&apikey=#{@apikey}")
+        puts send_url if @verbose
+        uri = URI.parse(send_url)
         uri.open{|csv| IO.copy_stream(csv, file)}
       rescue Exception => e
-        raise Alphavantage::Error.new message: "Failed to save the CSV file",
-          error: e.message
+        raise Alphavantage::Error.new message: "Failed to save the CSV file: #{e.message}"
       end
       return "CSV saved in #{file}"
     end
@@ -58,8 +60,7 @@ module Alphavantage
     end
 
     def crypto(symbol:, market:, datatype: "json")
-      Alphavantage::Crypto.new symbol: symbol, key: self, datatype: datatype,
-        market: market
+      Alphavantage::Crypto.new symbol: symbol, key: self, datatype: datatype, market: market
     end
 
     def sector

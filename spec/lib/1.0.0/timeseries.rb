@@ -1,6 +1,4 @@
 require_relative './../../spec_helper'
-require "openssl"
-OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 describe Alphavantage::Stock do
   context "#new" do
@@ -10,13 +8,12 @@ describe Alphavantage::Stock do
     end
 
     it "create a new stock from stock" do
-      timeseries = @client.stock(symbol: "MSFT").timeseries
+      timeseries = @client.stock(symbol: "MSFT").timeseries(type: "daily", outputsize: "compact")
       expect(timeseries.class).to eq Alphavantage::Timeseries
     end
 
     it "own multiple data" do
-      timeseries = @client.stock(symbol: "MSFT").timeseries(type: "daily",
-        outputsize: "full")
+      timeseries = @client.stock(symbol: "MSFT").timeseries(type: "daily", outputsize: "full")
       bool = []
       bool << timeseries.information.is_a?(String)
       bool << (timeseries.symbol == "MSFT")
@@ -38,7 +35,7 @@ describe Alphavantage::Stock do
       bool << timeseries.information.is_a?(String)
       bool << (timeseries.symbol == "MSFT")
       bool << timeseries.last_refreshed.is_a?(String)
-      bool << timeseries.interval == "30min"
+      bool << (timeseries.interval == "30min")
       bool << (timeseries.output_size == "Compact")
       bool << timeseries.time_zone.is_a?(String)
       bool << timeseries.hash.is_a?(Hash)
@@ -51,8 +48,7 @@ describe Alphavantage::Stock do
     end
 
     it "can retrieve adjusted data" do
-      timeseries = @client.stock(symbol: "MSFT").timeseries(type: "daily",
-        outputsize: "compact", adjusted: true)
+      timeseries = @client.stock(symbol: "MSFT").timeseries(type: "daily", outputsize: "compact", adjusted: true)
       bool = []
       bool << timeseries.information.is_a?(String)
       bool << (timeseries.symbol == "MSFT")

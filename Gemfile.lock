@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    api_cache (0.3.0)
     awesome_print (1.7.0)
     byebug (9.1.0)
     coderay (1.1.2)
@@ -34,6 +35,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  api_cache (= 0.3.0)
   awesome_print (~> 1.7)
   httparty (= 0.15.6)
   humanize (= 1.7.0)
