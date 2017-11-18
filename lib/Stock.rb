@@ -24,7 +24,7 @@ module Alphavantage
         key: @client, adjusted: adjusted
     end
 
-    def function function:, interval: "1min", time_period: "60",
+    def indicator function:, interval: "1min", time_period: "60",
       series_type: "close", fastlimit: "0.01", slowlimit: "0.01",
       fastperiod: "12", slowperiod: "26", signalperiod: "9",
       fastmatype: "0", slowmatype: "0", signalmatype: "0",
@@ -33,7 +33,7 @@ module Alphavantage
       fastdmatype: "0", matype: "0", timeperiod1: "7", timeperiod2: "14",
       timeperiod3: "28", nbdevup: "2", nbdevdn: "2", acceleration: "0.01",
       maximum: "0.20"
-      Alphavantage::Function.new function: function, symbol: @symbol,
+      Alphavantage::Indicator.new function: function, symbol: @symbol,
         interval: interval, time_period: time_period, series_type: series_type,
         fastlimit: fastlimit, slowlimit: slowlimit, fastperiod: fastperiod,
         slowperiod: slowperiod, signalperiod: signalperiod,

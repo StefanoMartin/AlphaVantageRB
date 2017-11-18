@@ -10,7 +10,7 @@ module Alphavantage
       @hash = @client.request("function=CURRENCY_EXCHANGE_RATE&from_currency=#{@from}&to_currency=#{@to}")
       hash = @hash["Realtime Currency Exchange Rate"]
       hash.each do |key, val|
-        key_sym = key.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_").to_sym
+        key_sym = recreate_metadata_key(key)
         define_singleton_method(key_sym) do
           return val
         end

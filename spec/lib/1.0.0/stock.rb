@@ -32,5 +32,11 @@ describe Alphavantage::Stock do
       timeseries = stock.timeseries
       expect(timeseries.class).to eq Alphavantage::Timeseries
     end
+
+    it "can create a new indicator from stock" do
+      stock = @client.stock symbol: "MSFT"
+      indicator = stock.indicator function: "SMA"
+      expect(indicator.class).to eq Alphavantage::Indicator
+    end
   end
 end

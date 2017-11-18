@@ -38,18 +38,7 @@ module Alphavantage
       series = {}
       convert_key = {}
       time_series.values[0].keys.each do |key|
-        key_sym = key.split(" ")
-        key_sym.shift
-        key_sym = key_sym.join("_")
-        key_sym = key_sym.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_")
-        key_sym = key_sym.split("_")
-        if key_sym[-1] == "(usd)"
-          key_sym[-1] = "usd"
-        elsif key_sym[-1].include?("(") && key_sym[-1].include?(")")
-          key_sym.pop
-        end
-        key_sym = key_sym.join("_")
-        key_sym = key_sym.to_sym
+        key_sym = recreate_metadata_key(key)
         series[key_sym] = []
         convert_key[key] = key_sym
       end

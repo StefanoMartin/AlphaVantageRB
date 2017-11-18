@@ -3,7 +3,7 @@ require_relative './../../spec_helper'
 describe Alphavantage::Stock do
   context "#new" do
     it "create a new timeseries without stock" do
-      stock = Alphavantage::Timeseries.new symbol: "MSFT", key: @config["key"], verbose: true
+      stock = Alphavantage::Timeseries.new symbol: "MSFT", key: @config["key"], verbose: false
       expect(stock.class).to eq Alphavantage::Timeseries
     end
 

@@ -30,7 +30,7 @@ module Alphavantage
       @hash = @client.request(url)
       metadata = @hash.dig("Meta Data") || {}
       metadata.each do |key, val|
-        key_sym = key.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_").to_sym
+        key_sym = recreate_metadata_key(key)
         define_singleton_method(key_sym) do
           return val
         end

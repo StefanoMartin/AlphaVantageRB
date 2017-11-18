@@ -1,5 +1,5 @@
 module Alphavantage
-  class Function
+  class Indicator
     include HelperFunctions
 
     def initialize function:, symbol:, interval: "1min", time_period: "60",
@@ -20,7 +20,7 @@ module Alphavantage
         "PLUS_DI", "MINUS_DM", "PLUS_DM", "BBANDS", "MIDPOINT", "MIDPRICE",
         "SAR", "TRANGE", "ATR", "NATR", "AD", "ADOSC", "OBV", "HT_SINE",
         "HT_TRENDLINE", "HT_TRENDMODE", "HT_DCPERIOD", "HT_DCPHASE",
-        "HT_PHASOR"], function)
+        "HT_PHASOR"], function, "function")
       url = "function=#{function}&symbol=#{symbol}"
 
       if ["SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "KAMA", "T3", "RSI",
@@ -31,7 +31,7 @@ module Alphavantage
         "SAR", "TRANGE", "ATR", "NATR", "AD", "ADOSC", "OBV", "HT_SINE",
         "HT_TRENDLINE", "HT_TRENDMODE", "HT_DCPERIOD", "HT_DCPHASE",
         "HT_PHASOR"].include? function
-        check_argument(["1min", "5min", "15min", "30min", "60min", "daily", "weekly", "monthly"], interval)
+        check_argument(["1min", "5min", "15min", "30min", "60min", "daily", "weekly", "monthly"], interval, "interval")
         url += "&interval=#{interval}"
       end
       if ["SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "KAMA", "T3", "RSI",
@@ -39,26 +39,25 @@ module Alphavantage
         "AROON", "AROONOSC", "MFI", "TRIX", "DX", "MINUS_DI", "PLUS_DI",
         "MINUS_DM", "PLUS_DM", "BBANDS", "MIDPOINT", "MIDPRICE", "ATR",
         "NATR"].include? function
-        check_value(time_period, "time_period", "integer")
-        url += "&time_period=#{time_period}"
+        url += return_int_val(time_period, "time_period", "integer")
       end
       if ["SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "KAMA", "T3", "RSI",
         "MAMA", "MACD", "MACDEXT", "STOCHRSI", "APO", "PPO", "MOM", "ROC",
         "ROCR", "TRIX", "BBANDS", "MIDPOINT", "HT_SINE", "HT_TRENDLINE",
-        "HT_TRENDMODE", "HT_DCPERIOD", "HT_DCPHASE", "HT_PHASOR"].include? function
-        check_argument(["close", "open", "high", "low"], series_type)
+        "HT_TRENDMODE", "HT_DCPERIOD", "HT_DCPHASE", "HT_PHASOR", "CMO"].include? function
+        check_argument(["close", "open", "high", "low"], series_type, "series_type")
         url += "&series_type=#{series_type}"
       end
       if ["MAMA"].include? function
-        url += return_numval(fastlimit, "fastlimit", "float")
-        url += return_numval(slowlimit, "slowlimit", "float")
+        url += return_int_val(fastlimit, "fastlimit", "float")
+        url += return_int_val(slowlimit, "slowlimit", "float")
       end
       if ["MACD", "MACDEXT", "APO", "PPO", "ADOSC"].include? function
-        url += return_numval(fastperiod, "fastperiod", "integer")
-        url += return_numval(slowperiod, "slowperiod", "integer")
+        url += return_int_val(fastperiod, "fastperiod", "integer")
+        url += return_int_val(slowperiod, "slowperiod", "integer")
       end
       if ["MACD", "MACDEXT"].include? function
-        url += return_numval(signalperiod, "signalperiod", "integer")
+        url += return_int_val(signalperiod, "signalperiod", "integer")
       end
       if ["MACDEXT"].include? function
         url += return_matype(fastmatype, "fastmatype")
@@ -66,12 +65,12 @@ module Alphavantage
         url += return_matype(signalmatype, "signalmatype")
       end
       if ["STOCH", "STOCHRSI"].include? function
-        url += return_numval(fastkperiod, "fastkperiod", "integer")
-        url += return_numval(fastdperiod, "fastdperiod", "integer")
+        url += return_int_val(fastkperiod, "fastkperiod", "integer")
+        url += return_int_val(fastdperiod, "fastdperiod", "integer")
       end
       if ["STOCH"].include? function
-        url += return_numval(slowkperiod, "slowkperiod", "integer")
-        url += return_numval(signaklperiod, "signalkperiod", "integer")
+        url += return_int_val(slowkperiod, "slowkperiod", "integer")
+        url += return_int_val(signalperiod, "signalperiod", "integer")
         url += return_matype(slowkmatype, "slowkmatype")
         url += return_matype(slowdmatype, "slowdmatype")
       end
@@ -82,23 +81,23 @@ module Alphavantage
         url += return_matype(matype, "matype")
       end
       if ["ULTOSC"].include? function
-        url += return_numval(timeperiod1, "timeperiod1", "integer")
-        url += return_numval(timeperiod2, "timeperiod2", "integer")
-        url += return_numval(timeperiod3, "timeperiod3", "integer")
+        url += return_int_val(timeperiod1, "timeperiod1", "integer")
+        url += return_int_val(timeperiod2, "timeperiod2", "integer")
+        url += return_int_val(timeperiod3, "timeperiod3", "integer")
       end
       if ["BBANDS"].include? function
-        url += return_numval(nbdevup, "nbdevup", "integer")
-        url += return_numval(nbdevdn, "nbdevdn", "integer")
+        url += return_int_val(nbdevup, "nbdevup", "integer")
+        url += return_int_val(nbdevdn, "nbdevdn", "integer")
       end
       if ["SAR"].include? function
-        url += return_numval(acceleration, "acceleration", "float")
-        url += return_numval(maximum, "maximum", "float")
+        url += return_int_val(acceleration, "acceleration", "float")
+        url += return_int_val(maximum, "maximum", "float")
       end
 
       @hash = @client.request(url)
       metadata = @hash.dig("Meta Data") || {}
       metadata.each do |key, val|
-        key_sym = key.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_").to_sym
+        key_sym = recreate_metadata_key(key)
         define_singleton_method(key_sym) do
           return val
         end
@@ -114,7 +113,7 @@ module Alphavantage
       series = {}
       convert_key = {}
       time_series.values[0].keys.each do |key|
-        key_sym = key.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_").to_sym
+        key_sym = key.downcase.gsub(/[.\/]/, "").lstrip.gsub(" ", "_").to_sym
         series[key_sym] = []
         convert_key[key] = key_sym
       end

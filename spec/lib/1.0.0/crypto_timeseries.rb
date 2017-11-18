@@ -3,7 +3,7 @@ require_relative './../../spec_helper'
 describe Alphavantage::Crypto_Timeseries do
   context "#new" do
     it "create a new timeseries without stock" do
-      stock = Alphavantage::Crypto_Timeseries.new symbol: "BTC", key: @config["key"], verbose: true, market: "DKK", type: "daily"
+      stock = Alphavantage::Crypto_Timeseries.new symbol: "BTC", key: @config["key"], verbose: false, market: "DKK", type: "daily"
       expect(stock.class).to eq Alphavantage::Crypto_Timeseries
     end
 
