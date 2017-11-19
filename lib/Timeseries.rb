@@ -2,7 +2,7 @@ module Alphavantage
   class Timeseries
     include HelperFunctions
 
-    def initialize type: "intraday", interval: nil, outputsize: "compact",
+    def initialize type: "daily", interval: nil, outputsize: "compact",
       symbol:, datatype: "json", file: nil, key:, verbose: false,
       adjusted: false
       check_argument([true, false], verbose, "verbose")

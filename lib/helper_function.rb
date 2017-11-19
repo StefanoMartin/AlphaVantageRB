@@ -1,4 +1,8 @@
 module HelperFunctions
+  def method_missing(method, *args, &block)
+    raise Alphavantage::Error.new message: "#{method} is undefined for #{self.class}"
+  end
+
   def check_argument(list, value, attribute)
     unless list.include? value
       list.each{|l| l = "nil" if l.nil?}

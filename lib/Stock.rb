@@ -17,14 +17,14 @@ module Alphavantage
       @datatype = datatype
     end
 
-    def timeseries type: "intraday", interval: nil, outputsize: "compact",
+    def timeseries type: "daily", interval: nil, outputsize: "compact",
       file: nil, datatype: @datatype, adjusted: false
       Alphavantage::Timeseries.new type: type, interval: interval,
         outputsize: outputsize, symbol: @symbol, datatype: datatype, file: file,
         key: @client, adjusted: adjusted
     end
 
-    def indicator function:, interval: "1min", time_period: "60",
+    def indicator function:, interval: "daily", time_period: "60",
       series_type: "close", fastlimit: "0.01", slowlimit: "0.01",
       fastperiod: "12", slowperiod: "26", signalperiod: "9",
       fastmatype: "0", slowmatype: "0", signalmatype: "0",

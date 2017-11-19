@@ -2,7 +2,7 @@ module Alphavantage
   class Indicator
     include HelperFunctions
 
-    def initialize function:, symbol:, interval: "1min", time_period: "60",
+    def initialize function:, symbol:, interval: "daily", time_period: "60",
       series_type: "close", fastlimit: "0.01", slowlimit: "0.01",
       fastperiod: "12", slowperiod: "26", signalperiod: "9",
       fastmatype: "0", slowmatype: "0", signalmatype: "0",

@@ -20,6 +20,7 @@ describe Alphavantage::Indicator do
       bool << indicator.last_refreshed.is_a?(String)
       bool << (indicator.interval == "weekly")
       bool << indicator.series_type.is_a?(String)
+      bool << indicator.time_period.is_a?(Fixnum)
       bool << indicator.time_zone.is_a?(String)
       bool << indicator.sma.is_a?(Array)
       expect(bool.all?{|e| e}).to eq true
@@ -221,7 +222,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator STOCHRSI" do
       bool = []
-      indicator = @stock.indicator(function: "STOCHF", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "STOCHRSI", interval: "weekly", time_period: "60", fastkperiod: "5", fastdperiod: "3", fastdmatype: "0")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -535,15 +536,15 @@ describe Alphavantage::Indicator do
         expect(bool.all?{|e| e}).to eq true
     end
 
-    it "can be indicator MIDPOINT" do
+    it "can be indicator MIDPRICE" do
       bool = []
-      indicator = @stock.indicator(function: "MIDPOINT", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "MIDPRICE", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
         bool << (indicator.interval == "weekly")
         bool << indicator.time_zone.is_a?(String)
-        bool << indicator.midpoint.is_a?(Array)
+        bool << indicator.midprice.is_a?(Array)
         expect(bool.all?{|e| e}).to eq true
     end
 
