@@ -168,37 +168,9 @@ indicator.time_zone
 
 Some other are more specific in relation of the type of indicator used.
 ``` ruby
-indicator.time_period
-=begin time_period is only supported by "SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "KAMA", "T3", "RSI", "STOCHRSI", "WILLR", "ADX", "ADXR", "MOM", "CCI", "CMO", "ROC", "ROCR", "AROON", "AROONOSC", "MFI", "TRIX", "DX", "MINUS_DI", "PLUS_DI", "MINUS_DM", "PLUS_DM", "BBANDS", "MIDPOINT", "MIDPRICE", "ATR","NATR"
-=end
-indicator.series_type
-=begin series_type is only supported by "SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "KAMA", "T3", "RSI", "MAMA", "MACD", "MACDEXT", "STOCHRSI", "APO", "PPO", "MOM", "ROC","ROCR", "TRIX", "BBANDS", "MIDPOINT", "HT_SINE", "HT_TRENDLINE",  "HT_TRENDMODE", "HT_DCPERIOD", "HT_DCPHASE", "HT_PHASOR", "CMO"
-=end
+indicator.time_period # time_period is only supported by "SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "KAMA", "T3", "RSI", "STOCHRSI", "WILLR", "ADX", "ADXR", "MOM", "CCI", "CMO", "ROC", "ROCR", "AROON", "AROONOSC", "MFI", "TRIX", "DX", "MINUS_DI", "PLUS_DI", "MINUS_DM", "PLUS_DM", "BBANDS", "MIDPOINT", "MIDPRICE", "ATR","NATR"
+indicator.series_type # series_type is only supported by "SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "KAMA", "T3", "RSI", "MAMA", "MACD", "MACDEXT", "STOCHRSI", "APO", "PPO", "MOM", "ROC","ROCR", "TRIX", "BBANDS", "MIDPOINT", "HT_SINE", "HT_TRENDLINE",  "HT_TRENDMODE", "HT_DCPERIOD", "HT_DCPHASE", "HT_PHASOR", "CMO"
 ```
-
-* fastperiod:  it can be a positive integer (default "12"). These functions support this attribute: "MACD", "MACDEXT", "APO", "PPO", "ADOSC"
-* slowperiod: it can be a positive integer (default "26"). These functions support this attribute: "MACD", "MACDEXT", "APO", "PPO", "ADOSC"
-* signalperiod: it can be a positive integer (default "9"). These functions support this attribute: "MACD", "MACDEXT", "STOCH"
-* fastmatype:  it is a MA parameter (default "0"). This function supports this attribute: "MACDEXT"
-* slowmatype: it is a MA parameter (default "0"). This function supports this attribute: "MACDEXT"
-* signalmatype: it is a MA parameter (default "0"). This function supports this attribute: "MACDEXT"
-* fastkperiod: it can be a positive integer (default "5"). These functions support this attribute: "STOCH", "STOCHRSI"
-* slowkperiod: it can be a positive integer (default "3"). These functions support this attribute: "STOCH"
-* slowdperiod: it can be a positive integer (default "3"). These functions support this attribute: "STOCH"
-* slowkmatype: it is a MA parameter (default "0"). These functions support this attribute: "STOCH"
-* slowdmatype: it is a MA parameter (default "0"). These functions support this attribute: "STOCH"
-* fastdperiod: it can be a positive integer (default "3"). These functions support this attribute: "STOCH", "STOCHRSI"
-* fastdmatype: it is a MA parameter (default "0"). These functions support this attribute: "STOCH", "STOCHRSI"
-* matype: it is a MA parameter (default "0"). These functions support this attribute: "APO", "PPO", "BBANDS"
-* timeperiod1: it can be a positive integer (default "7"). These functions support this attribute: "ULTOSC"
-* timeperiod2: it can be a positive integer (default "14"). These functions support this attribute: "ULTOSC"
-* timeperiod3:  it can be a positive integer (default "28"). These functions support this attribute: "ULTOSC"
-* nbdevup: it can be a positive integer (default "2"). These functions support this attribute: "BBANDS"
-* nbdevdn:  it can be a positive integer (default "2"). These functions support this attribute: "BBANDS"
-* acceleration: it can be a positive float (default "0.01"). These functions support this attribute: "SAR"
-* maximum: it can be a positive float (default "0.20"). These functions support this attribute: "SAR"
-
-
 Then there are really specific indicator, for only some functions.
 
 ### SMA
