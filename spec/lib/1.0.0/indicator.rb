@@ -274,7 +274,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator APO" do
       bool = []
-      indicator = @stock.indicator(function: "APO", interval: "weekly", series_type: "close", fastperiod: "12", slowperiod: "26", signalperiod: "9")
+      indicator = @stock.indicator(function: "APO", interval: "weekly", series_type: "close", fastperiod: "12", slowperiod: "26", signalperiod: "9", matype: "0")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -290,7 +290,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator PPO" do
       bool = []
-      indicator = @stock.indicator(function: "PPO", interval: "weekly", series_type: "close", fastperiod: "12", slowperiod: "26", signalperiod: "9")
+      indicator = @stock.indicator(function: "PPO", interval: "weekly", series_type: "close", fastperiod: "12", slowperiod: "26", signalperiod: "9", matype: "0")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)

@@ -64,7 +64,7 @@ module Alphavantage
         url += return_matype(slowmatype, "slowmatype")
         url += return_matype(signalmatype, "signalmatype")
       end
-      if ["STOCH", "STOCHRSI"].include? function
+      if ["STOCH", "STOCHF", "STOCHRSI"].include? function
         url += return_int_val(fastkperiod, "fastkperiod", "integer")
         url += return_int_val(fastdperiod, "fastdperiod", "integer")
       end
@@ -74,7 +74,7 @@ module Alphavantage
         url += return_matype(slowkmatype, "slowkmatype")
         url += return_matype(slowdmatype, "slowdmatype")
       end
-      if ["STOCH", "STOCHRSI"].include? function
+      if ["STOCH", "STOCHF", "STOCHRSI"].include? function
         url += return_matype(fastdmatype, "fastdmatype")
       end
       if ["APO", "PPO", "BBANDS"].include? function
