@@ -27,7 +27,7 @@ describe Alphavantage::Client do
     end
 
     it "can create a new exchange from client" do
-      exchange = @client.exchange from: "USD", to: "DKK"
+      sleep(1); exchange = @client.exchange from: "USD", to: "DKK"
       expect(exchange.class).to eq Alphavantage::Exchange
     end
 
@@ -37,7 +37,7 @@ describe Alphavantage::Client do
     end
 
     it "can create a new sector from client" do
-      sector = @client.sector
+      sleep(1); sector = @client.sector
       expect(sector.class).to eq Alphavantage::Sector
     end
   end

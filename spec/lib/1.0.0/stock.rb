@@ -29,13 +29,13 @@ describe Alphavantage::Stock do
 
     it "can create a new timeseries from stock" do
       stock = @client.stock symbol: "MSFT"
-      timeseries = stock.timeseries
+      sleep(1); timeseries = stock.timeseries
       expect(timeseries.class).to eq Alphavantage::Timeseries
     end
 
     it "can create a new indicator from stock" do
       stock = @client.stock symbol: "MSFT"
-      indicator = stock.indicator function: "SMA"
+      sleep(1); indicator = stock.indicator function: "SMA"
       expect(indicator.class).to eq Alphavantage::Indicator
     end
   end

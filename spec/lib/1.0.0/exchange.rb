@@ -3,17 +3,17 @@ require_relative './../../spec_helper'
 describe Alphavantage::Exchange do
   context "#new" do
     it "create a new exchange without client" do
-      exchange = Alphavantage::Exchange.new from: "USD", to: "DKK", key: @config["key"]
+      sleep(1); exchange = Alphavantage::Exchange.new from: "USD", to: "DKK", key: @config["key"]
       expect(exchange.class).to eq Alphavantage::Exchange
     end
 
     it "create a new exchange with client" do
-      exchange = @client.exchange from: "USD", to: "DKK"
+      sleep(1); exchange = @client.exchange from: "USD", to: "DKK"
       expect(exchange.class).to eq Alphavantage::Exchange
     end
 
     it "has several parameters" do
-      exchange = @client.exchange from: "USD", to: "DKK"
+      sleep(1); exchange = @client.exchange from: "USD", to: "DKK"
       bool = []
       bool << (exchange.from_currency_code == "USD")
       bool << exchange.from_currency_name.is_a?(String)
@@ -29,7 +29,7 @@ describe Alphavantage::Exchange do
     it "cannot retrieve with wrong key" do
       error = false
       begin
-        stock = Alphavantage::Exchange.new from: "USD", to: "DKK", key:"wrong_key"
+        sleep(1); stock = Alphavantage::Exchange.new from: "USD", to: "DKK", key:"wrong_key"
       rescue Alphavantage::Error => e
         error = true
       end
@@ -39,7 +39,7 @@ describe Alphavantage::Exchange do
     it "cannot retrieve with wrong symbol" do
       error = false
       begin
-        stock = Alphavantage::Exchange.new from: "wrong_from", to: "DKK", key: @config["key"]
+        sleep(1); stock = Alphavantage::Exchange.new from: "wrong_from", to: "DKK", key: @config["key"]
       rescue Alphavantage::Error => e
         error = true
       end

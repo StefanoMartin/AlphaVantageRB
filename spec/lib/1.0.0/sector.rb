@@ -3,17 +3,17 @@ require_relative './../../spec_helper'
 describe Alphavantage::Sector do
   context "#new" do
     it "create a new sector without client" do
-      exchange = Alphavantage::Sector.new key: @config["key"]
+      sleep(1); exchange = Alphavantage::Sector.new key: @config["key"]
       expect(exchange.class).to eq Alphavantage::Sector
     end
 
     it "create a new sector with client" do
-      exchange = @client.sector
+      sleep(1); exchange = @client.sector
       expect(exchange.class).to eq Alphavantage::Sector
     end
 
     it "has several parameters" do
-      exchange = @client.sector
+      sleep(1); exchange = @client.sector
       bool = []
       bool << exchange.information.is_a?(String)
       bool << exchange.last_refreshed.is_a?(String)
@@ -34,7 +34,7 @@ describe Alphavantage::Sector do
     it "cannot retrieve with wrong key" do
       error = false
       begin
-        stock = Alphavantage::Sector.new key:"wrong_key"
+        sleep(1); stock = Alphavantage::Sector.new key:"wrong_key"
       rescue Alphavantage::Error => e
         error = true
       end

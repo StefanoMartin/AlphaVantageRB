@@ -1,6 +1,5 @@
 require "httparty"
 require "humanize"
-require "pry-byebug"
 require "open-uri"
 require_relative "helper_function"
 require_relative "Timeseries"
