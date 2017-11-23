@@ -1,10 +1,14 @@
-AlphavantageRB
+AlphavantageRB [![Gem Version](https://badge.fury.io/rb/alphavantagerb.svg)](https://badge.fury.io/rb/alphavantagerb)
 =========================================================
 
 [Alpha Vantage](https://www.alphavantage.co/) is a great API for retrieving Stock
 market data in JSON or CSV format.
-AlphavantageRB is a Gem to use Alpha Vantage with Ruby. AlphavangateRB is based
+AlphavantageRB is a Gem to use Alpha Vantage with Ruby. AlphavantageRB is based
 on the [HTTP API of Alpha Vantage](https://www.alphavantage.co/documentation/).
+
+To install AlphavantageRB: `gem install alphavantagerb`
+
+To use it in your application: `require "alphavantagerb"`
 
 ## Classes
 
