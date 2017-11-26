@@ -601,8 +601,8 @@ To create a new Crypto class you can use a client or you can create it directly.
 These two creation commands are equivalent:
 
 ``` ruby
-stock = client.crypto symbol: "BTC", market: "DKK"
-stock = Alphavantage::Crypto.new symbol: "BTC", market: "DKK", key: "YOURKEY"
+crypto = client.crypto symbol: "BTC", market: "DKK"
+crypto = Alphavantage::Crypto.new symbol: "BTC", market: "DKK", key: "YOURKEY"
 ```
 
 Note that the initialization owns different entry:
@@ -615,7 +615,7 @@ Note that the initialization owns different entry:
 You can setup the datatype of future retrieving by doing:
 
 ``` ruby
-stock.datatype = "csv"
+crypto.datatype = "csv"
 ```
 
 <a name="Crypto_Timeseries"></a>
@@ -677,8 +677,8 @@ These timeseries return always the corrispective timeseries in relation of the U
 You can order the data in ascending or descending order.
 
 ``` ruby
-  timeseries.open("desc") # Default
-  timeseries.open("asc")
+  crypto_timeseries.open("desc") # Default
+  crypto_timeseries.open("asc")
 ```
 <a name="Exchange"></a>
 ## Alphavantage::Exchange
@@ -738,24 +738,23 @@ Note that the initialization owns different entries:
 
 You can retrieve all the output from Alpha Vantage by doing.
 ``` ruby
-  crypto_timeseries.hash
+  sector.hash
 ```
 
 Specific information about the timeseries can be retrieved using the following methods:
 ``` ruby
-  exchange.information
-  exchange.last_refreshed
-  exchange.hash
-  exchange.real_time_performance
-  exchange.one_day_performance
-  exchange.five_day_performance
-  exchange.one_month_performance
-  exchange.three_month_performance
-  exchange.year_to_date_performance
-  exchange.one_year_performance
-  exchange.three_year_performance
-  exchange.five_year_performance
-  exchange.ten_year_performance
+  sector.information
+  sector.last_refreshed
+  sector.real_time_performance
+  sector.one_day_performance
+  sector.five_day_performance
+  sector.one_month_performance
+  sector.three_month_performance
+  sector.year_to_date_performance
+  sector.one_year_performance
+  sector.three_year_performance
+  sector.five_year_performance
+  sector.ten_year_performance
 ```
 
 <a name="Error"></a>
