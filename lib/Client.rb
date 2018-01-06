@@ -51,6 +51,10 @@ module Alphavantage
       return "CSV saved in #{file}"
     end
 
+    def batch(symbols:, datatype: "json", file: nil)
+      Alphavantage::Batch.new symbols: symbols, key: self, datatype: datatype, file: file
+    end
+
     def stock(symbol:, datatype: "json")
       Alphavantage::Stock.new symbol: symbol, key: self, datatype: datatype
     end
