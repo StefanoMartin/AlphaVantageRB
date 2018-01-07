@@ -8,6 +8,8 @@ module Alphavantage
       @client = return_client(key, verbose)
       @symbols = symbols
       @datatype = datatype
+      @verbose = verbose
+      @file = file
       check_argument(["json", "csv"], datatype, "datatype")
       if datatype == "csv" && file.nil?
         raise Alphavantage::Error.new message: "No file specified where to save the CSV ata"
@@ -45,12 +47,6 @@ module Alphavantage
       end
     end
 
-    def datatype=(datatype)
-      check_argument(["json", "csv"], datatype, "datatype")
-      @datatype = datatype
-    end
-
-    attr_accessor :symbols
-    attr_reader :datatype, :stock_quote, :hash
+    attr_reader :datatype, :stock_quote, :hash, :symbols
   end
 end

@@ -26,15 +26,15 @@ describe Alphavantage::Exchange do
       expect(bool.all?{|e| e}).to eq true
     end
 
-    it "cannot retrieve with wrong key" do
-      error = false
-      begin
-        sleep(1); stock = Alphavantage::Exchange.new from: "USD", to: "DKK", key:"wrong_key"
-      rescue Alphavantage::Error => e
-        error = true
-      end
-      expect(error).to eq true
-    end
+    # it "cannot retrieve with wrong key" do
+    #   error = false
+    #   begin
+    #     sleep(1); stock = Alphavantage::Exchange.new from: "USD", to: "DKK", key:"wrong_key"
+    #   rescue Alphavantage::Error => e
+    #     error = true
+    #   end
+    #   expect(error).to eq true
+    # end
 
     it "cannot retrieve with wrong symbol" do
       error = false

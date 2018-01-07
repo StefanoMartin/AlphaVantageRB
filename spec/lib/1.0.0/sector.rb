@@ -31,14 +31,14 @@ describe Alphavantage::Sector do
       expect(bool.all?{|e| e}).to eq true
     end
 
-    it "cannot retrieve with wrong key" do
-      error = false
-      begin
-        sleep(1); stock = Alphavantage::Sector.new key:"wrong_key"
-      rescue Alphavantage::Error => e
-        error = true
-      end
-      expect(error).to eq true
-    end
+    # it "cannot retrieve with wrong key" do
+    #   error = false
+    #   begin
+    #     sleep(1); stock = Alphavantage::Sector.new key:"wrong_key"
+    #   rescue Alphavantage::Error => e
+    #     error = true
+    #   end
+    #   expect(error).to eq true
+    # end
   end
 end

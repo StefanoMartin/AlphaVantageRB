@@ -78,15 +78,15 @@ describe Alphavantage::Stock do
       expect(bool).to eq [false, true]
     end
 
-    it "cannot retrieve with wrong key" do
-      error = false
-      begin
-        sleep(1); stock = Alphavantage::Timeseries.new symbol: "MSFT", key:"wrong key"
-      rescue Alphavantage::Error => e
-        error = true
-      end
-      expect(error).to eq true
-    end
+    # it "cannot retrieve with wrong key" do
+    #   error = false
+    #   begin
+    #     sleep(1); stock = Alphavantage::Timeseries.new symbol: "MSFT", key:"wrong key"
+    #   rescue Alphavantage::Error => e
+    #     error = true
+    #   end
+    #   expect(error).to eq true
+    # end
 
     it "cannot retrieve with wrong symbol" do
       error = false

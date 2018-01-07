@@ -18,8 +18,8 @@ module Alphavantage
       @datatype = datatype
     end
 
-    def timeseries type: "intraday", market: @market, file: nil, datatype: @datatype
-      Alphavantage::Crypto_Timeseries.new type: type, market: market,
+    def timeseries market: @market, file: nil, datatype: @datatype
+      Alphavantage::Crypto_Timeseries.new market: market,
         symbol: @symbol, datatype: datatype, file: file, key: @client
     end
   end

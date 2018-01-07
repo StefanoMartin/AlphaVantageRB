@@ -12,21 +12,6 @@ describe Alphavantage::Batch do
       expect(stock.class).to eq Alphavantage::Batch
     end
 
-    it "can change datatype" do
-      bool = []
-      stock = @client.batch symbols: ["MSFT", "FB", "AAPL"]
-      bool << stock.datatype
-      begin
-        stock.datatype = "ciao"
-      rescue Alphavantage::Error => e
-        bool << "error"
-      end
-      stock.datatype = "csv"
-      bool << stock.datatype
-      stock.datatype = "json"
-      expect(bool).to eq ["json", "error", "csv"]
-    end
-
     it "own multiple data" do
       sleep(1); timeseries = @client.batch symbols: ["MSFT", "FB", "AAPL"]
       bool = []
@@ -54,7 +39,7 @@ describe Alphavantage::Batch do
       rescue Alphavantage::Error => e
         error = true
       end
-      expect(error).to eq true
+      expect(stock.stock_quote.empty?).to eq true
     end
   end
 end
