@@ -3,17 +3,17 @@ require_relative './../../spec_helper'
 describe Alphavantage::Crypto_Timeseries do
   context "#new" do
     it "create a new timeseries without stock" do
-      sleep(1); stock = Alphavantage::Crypto_Timeseries.new symbol: "BTC", key: @config["key"], verbose: false, market: "DKK"
+      sleep(1); stock = Alphavantage::Crypto_Timeseries.new symbol: "BTC", key: @config["key"], verbose: false, market: "DKK", type: "daily"
       expect(stock.class).to eq Alphavantage::Crypto_Timeseries
     end
 
     it "create a new stock from stock" do
-      sleep(1); timeseries = @client.crypto(symbol: "BTC", market: "DKK").timeseries
+      sleep(1); timeseries = @client.crypto(symbol: "BTC", market: "DKK").timeseries(type: "monthly")
       expect(timeseries.class).to eq Alphavantage::Crypto_Timeseries
     end
 
     it "own multiple data" do
-      sleep(1); timeseries = @client.crypto(symbol: "BTC", market: "DKK").timeseries
+      sleep(1); timeseries = @client.crypto(symbol: "BTC", market: "DKK").timeseries(type: "monthly")
       bool = []
       bool << timeseries.information.is_a?(String)
       bool << (timeseries.digital_currency_code == "BTC")
@@ -23,9 +23,15 @@ describe Alphavantage::Crypto_Timeseries do
       bool << timeseries.last_refreshed.is_a?(String)
       bool << timeseries.time_zone.is_a?(String)
       bool << timeseries.hash.is_a?(Hash)
+      bool << timeseries.open.is_a?(Array)
+      bool << timeseries.high.is_a?(Array)
+      bool << timeseries.low.is_a?(Array)
+      bool << timeseries.close.is_a?(Array)
       bool << timeseries.volume("asc").is_a?(Array)
-      bool << timeseries.price.is_a?(Array)
-      bool << timeseries.price_usd.is_a?(Array)
+      bool << timeseries.open_usd.is_a?(Array)
+      bool << timeseries.high_usd.is_a?(Array)
+      bool << timeseries.low_usd.is_a?(Array)
+      bool << timeseries.close_usd.is_a?(Array)
       bool << timeseries.market_cap_usd.is_a?(Array)
       expect(bool.all?{|e| e}).to eq true
     end
@@ -43,7 +49,7 @@ describe Alphavantage::Crypto_Timeseries do
     it "cannot retrieve with wrong symbol" do
       error = false
       begin
-        sleep(1); stock = Alphavantage::Crypto_Timeseries.new symbol: "wrong_symbol", key: @config["key"], market: "DKK"
+        sleep(1); stock = Alphavantage::Crypto_Timeseries.new symbol: "wrong_symbol", key: @config["key"], market: "DKK", type: "daily"
       rescue Alphavantage::Error => e
         error = true
       end

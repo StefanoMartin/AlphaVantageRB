@@ -2,7 +2,7 @@ module Alphavantage
   class Crypto_Timeseries
     include HelperFunctions
 
-    def initialize market:, symbol:, datatype: "json", file: nil,
+    def initialize type: "intraday", market:, symbol:, datatype: "json", file: nil,
       key:, verbose: false
       check_argument([true, false], verbose, "verbose")
       @client = return_client(key, verbose)
@@ -13,8 +13,8 @@ module Alphavantage
         raise Alphavantage::Error.new message: "Hash error: No file necessary"
       end
 
-      # @selected_time_series = which_series(type)
-      url = "function=DIGITAL_CURRENCY_INTRADAY&symbol=#{symbol}&market=#{market}"
+      @selected_time_series = which_series(type)
+      url = "function=#{@selected_time_series}&symbol=#{symbol}&market=#{market}"
       return @client.download(url, file) if datatype == "csv"
       @hash = @client.request(url)
       metadata = @hash.dig("Meta Data") || {}
@@ -57,11 +57,11 @@ module Alphavantage
 
     attr_reader :hash
 
-    # def which_series(type)
-    #   check_argument(["intraday", "daily", "weekly", "monthly"], type, "type")
-    #   series = "DIGITAL_CURRENCY_"
-    #   series += type.upcase
-    #   return series
-    # end
+    def which_series(type)
+      check_argument(["intraday", "daily", "weekly", "monthly"], type, "type")
+      series = "DIGITAL_CURRENCY_"
+      series += type.upcase
+      return series
+    end
   end
 end

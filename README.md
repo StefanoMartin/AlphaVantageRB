@@ -665,8 +665,8 @@ To create a new Crypto_Timeseries class you can use a Crypto class or you can cr
 These two creation commands are equivalent:
 
 ``` ruby
-crypto_timeseries = crypto.timeseries
-crypto_timeseries = Alphavantage::Crypto_Timeseries.new symbol: "BTC", market: "DKK", key: "YOURKEY"
+crypto_timeseries = crypto.timeseries type: "daily"
+crypto_timeseries = Alphavantage::Crypto_Timeseries.new type: "daily", symbol: "BTC", market: "DKK", key: "YOURKEY"
 ```
 
 Note that the initialization owns different entries:
@@ -674,6 +674,7 @@ Note that the initialization owns different entries:
 * market: it is a string that denote the market you want to analyze. This value cannot be setup if you are initializing a timeseries from a stock
 * key: authentication key.  This value cannot be setup if you are initializing a timeseries from a crypto class
 * verbose: used to see the request to Alpha Vantage (default false). This value cannot be setup if you are initializing a timeseries from a stock
+* type: it can be "intraday", "daily", "weekly", "monthly" (default "daily")
 * datatype: it can be "json" or "csv" (default "json")
 * file: path where a csv file should be saved (default "nil")
 
@@ -700,17 +701,23 @@ These methods will return an array of couples where the first entry is a timesta
 These timeseries return always the corrispective timeseries in relation of the USD market.
 
 ``` ruby
-  crypto_timeseries.price
-  crypto_timeseries.price_usd
+  crypto_timeseries.open
+  crypto_timeseries.close
+  crypto_timeseries.high
+  crypto_timeseries.low
   crypto_timeseries.volume
+  crypto_timeseries.open_usd
+  crypto_timeseries.close_usd
+  crypto_timeseries.high_usd
+  crypto_timeseries.low_usd
   crypto_timeseries.market_cap_usd
 ```
 
 You can order the data in ascending or descending order.
 
 ``` ruby
-  crypto_timeseries.price("desc") # Default
-  crypto_timeseries.price("asc")
+  crypto_timeseries.open("desc") # Default
+  crypto_timeseries.open("asc")
 ```
 <a name="Exchange"></a>
 ## Alphavantage::Exchange
