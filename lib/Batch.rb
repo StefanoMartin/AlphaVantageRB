@@ -30,23 +30,23 @@ module Alphavantage
       end
 
       begin
-        stock_quote = @hash.find{|key, val| key.include?("Stock Quotes")}[1]
+        stock_quotes = @hash.find{|key, val| key.include?("Stock Quotes")}[1]
       rescue Exception => e
         raise Alphavantage::Error.new message: "No Stock Quotes found: #{e.message}",
           data: @hash
       end
 
-      @stock_quote = []
-      stock_quote.each do |sq|
+      @stock_quotes = []
+      stock_quotes.each do |sq|
         sval = {}
         sq.each do |key, val|
           key_sym = key.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_")
           sval[key_sym] = val
         end
-        @stock_quote << sval
+        @stock_quotes << sval
       end
     end
 
-    attr_reader :datatype, :stock_quote, :hash, :symbols
+    attr_reader :datatype, :stock_quotes, :hash, :symbols
   end
 end

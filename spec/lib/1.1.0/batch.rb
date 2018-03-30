@@ -18,7 +18,7 @@ describe Alphavantage::Batch do
       bool << timeseries.information.is_a?(String)
       bool << timeseries.notes.is_a?(String)
       bool << timeseries.time_zone.is_a?(String)
-      bool << timeseries.stock_quote.is_a?(Array)
+      bool << timeseries.stock_quotes.is_a?(Array)
       expect(bool.all?{|e| e}).to eq true
     end
 
@@ -39,7 +39,7 @@ describe Alphavantage::Batch do
       rescue Alphavantage::Error => e
         error = true
       end
-      expect(stock.stock_quote.empty?).to eq true
+      expect(stock.stock_quotes.empty?).to eq true
     end
   end
 end
