@@ -3,18 +3,18 @@
 describe Alphavantage::Indicator do
   context "#new" do
     it "create a new indicator without stock" do
-      sleep(1); indicator = Alphavantage::Indicator.new function: "SMA", symbol: "MSFT", key: @config["key"], verbose: false
+      indicator = Alphavantage::Indicator.new function: "SMA", symbol: "MSFT", key: @config["key"], verbose: false
       expect(indicator.class).to eq Alphavantage::Indicator
     end
 
     it "create a new stock from stock" do
-      sleep(1); indicator = @client.stock(symbol: "MSFT").indicator(function: "SMA")
+      indicator = @client.stock(symbol: "MSFT").indicator(function: "SMA")
       expect(indicator.class).to eq Alphavantage::Indicator
     end
 
     it "can be indicator SMA" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "SMA", interval: "weekly", time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "SMA", interval: "weekly", time_period: "60", series_type: "close")
       bool << (indicator.symbol == "MSFT")
       bool << indicator.indicator.is_a?(String)
       bool << indicator.last_refreshed.is_a?(String)
@@ -28,7 +28,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator EMA" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "EMA", interval: "weekly", time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "EMA", interval: "weekly", time_period: "60", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -41,7 +41,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator WMA" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "WMA", interval: "weekly", time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "WMA", interval: "weekly", time_period: "60", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -54,7 +54,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator DEMA" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "DEMA", interval: "weekly", time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "DEMA", interval: "weekly", time_period: "60", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -67,7 +67,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator TEMA" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "TEMA", interval: "weekly",  time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "TEMA", interval: "weekly",  time_period: "60", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -80,7 +80,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator TRIMA" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "TRIMA", interval: "weekly", time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "TRIMA", interval: "weekly", time_period: "60", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -93,7 +93,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator KAMA" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "KAMA", interval: "weekly", time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "KAMA", interval: "weekly", time_period: "60", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -106,7 +106,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator MAMA" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "MAMA", interval: "weekly", series_type: "close", fastlimit: "0.02", slowlimit: "0.01")
+      indicator = @stock.indicator(function: "MAMA", interval: "weekly", series_type: "close", fastlimit: "0.02", slowlimit: "0.01")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -122,7 +122,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator T3" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "T3", interval: "weekly", time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "T3", interval: "weekly", time_period: "60", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -136,7 +136,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator MACD" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "MACD", interval: "weekly",  time_period: "60", series_type: "close",        fastperiod: "12", slowperiod: "26", signalperiod: "9")
+      indicator = @stock.indicator(function: "MACD", interval: "weekly",  time_period: "60", series_type: "close",        fastperiod: "12", slowperiod: "26", signalperiod: "9")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -154,7 +154,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator MACDEXT" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "MACDEXT", interval: "weekly",  time_period: "60", series_type: "close", fastperiod: "12", slowperiod: "26", signalperiod: "9", fastmatype: "0", slowmatype: "0", signalmatype: "0")
+      indicator = @stock.indicator(function: "MACDEXT", interval: "weekly",  time_period: "60", series_type: "close", fastperiod: "12", slowperiod: "26", signalperiod: "9", fastmatype: "0", slowmatype: "0", signalmatype: "0")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -175,7 +175,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator STOCH" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "STOCH", interval: "weekly", fastkperiod: "5", slowkperiod: "3", slowdperiod: "3", slowkmatype: "0", slowdmatype: "0")
+      indicator = @stock.indicator(function: "STOCH", interval: "weekly", fastkperiod: "5", slowkperiod: "3", slowdperiod: "3", slowkmatype: "0", slowdmatype: "0")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -193,7 +193,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator STOCHF" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "STOCHF", interval: "weekly", fastkperiod: "5", fastdperiod: "3", fastdmatype: "0")
+      indicator = @stock.indicator(function: "STOCHF", interval: "weekly", fastkperiod: "5", fastdperiod: "3", fastdmatype: "0")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -209,7 +209,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator RSI" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "RSI", interval: "weekly", time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "RSI", interval: "weekly", time_period: "60", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -222,7 +222,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator STOCHRSI" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "STOCHRSI", interval: "weekly", time_period: "60", fastkperiod: "5", fastdperiod: "3", fastdmatype: "0")
+      indicator = @stock.indicator(function: "STOCHRSI", interval: "weekly", time_period: "60", fastkperiod: "5", fastdperiod: "3", fastdmatype: "0")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -238,7 +238,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator WILLR" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "WILLR", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "WILLR", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -250,7 +250,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator ADX" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "ADX", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "ADX", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -262,7 +262,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator ADXR" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "ADXR", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "ADXR", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -274,7 +274,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator APO" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "APO", interval: "weekly", series_type: "close", fastperiod: "12", slowperiod: "26", signalperiod: "9", matype: "0")
+      indicator = @stock.indicator(function: "APO", interval: "weekly", series_type: "close", fastperiod: "12", slowperiod: "26", signalperiod: "9", matype: "0")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -290,7 +290,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator PPO" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "PPO", interval: "weekly", series_type: "close", fastperiod: "12", slowperiod: "26", signalperiod: "9", matype: "0")
+      indicator = @stock.indicator(function: "PPO", interval: "weekly", series_type: "close", fastperiod: "12", slowperiod: "26", signalperiod: "9", matype: "0")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -306,7 +306,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator MOM" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "MOM", interval: "weekly", time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "MOM", interval: "weekly", time_period: "60", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -319,7 +319,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator BOP" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "BOP", interval: "weekly")
+      indicator = @stock.indicator(function: "BOP", interval: "weekly")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -331,7 +331,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator CCI" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "CCI", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "CCI", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -343,7 +343,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator CMO" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "CMO", interval: "weekly", time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "CMO", interval: "weekly", time_period: "60", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -356,7 +356,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator ROC" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "ROC", interval: "weekly", time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "ROC", interval: "weekly", time_period: "60", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -369,7 +369,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator ROCR" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "ROCR", interval: "weekly", time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "ROCR", interval: "weekly", time_period: "60", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -382,7 +382,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator AROON" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "AROON", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "AROON", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -395,7 +395,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator AROONOSC" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "AROONOSC", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "AROONOSC", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -407,7 +407,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator MFI" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "MFI", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "MFI", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -419,7 +419,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator TRIX" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "TRIX", interval: "weekly", time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "TRIX", interval: "weekly", time_period: "60", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -432,7 +432,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator ULTOSC" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "ULTOSC", interval: "weekly", timeperiod1: "7", timeperiod2: "14",  timeperiod3: "28")
+      indicator = @stock.indicator(function: "ULTOSC", interval: "weekly", timeperiod1: "7", timeperiod2: "14",  timeperiod3: "28")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -447,7 +447,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator DX" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "DX", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "DX", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -459,7 +459,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator MINUS_DI" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "MINUS_DI", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "MINUS_DI", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -471,7 +471,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator PLUS_DI" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "PLUS_DI", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "PLUS_DI", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -483,7 +483,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator MINUS_DM" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "MINUS_DM", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "MINUS_DM", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -495,7 +495,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator PLUS_DM" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "PLUS_DM", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "PLUS_DM", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -507,7 +507,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator BBANDS" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "BBANDS", interval: "weekly", time_period: "60", series_type: "close", matype: "0", nbdevup: "2", nbdevdn: "2")
+      indicator = @stock.indicator(function: "BBANDS", interval: "weekly", time_period: "60", series_type: "close", matype: "0", nbdevup: "2", nbdevdn: "2")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -525,7 +525,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator MIDPOINT" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "MIDPOINT", interval: "weekly", time_period: "60", series_type: "close")
+      indicator = @stock.indicator(function: "MIDPOINT", interval: "weekly", time_period: "60", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -538,7 +538,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator MIDPRICE" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "MIDPRICE", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "MIDPRICE", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -550,7 +550,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator SAR" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "SAR", interval: "weekly", acceleration: "0.01", maximum: "0.20")
+      indicator = @stock.indicator(function: "SAR", interval: "weekly", acceleration: "0.01", maximum: "0.20")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -564,7 +564,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator TRANGE" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "TRANGE", interval: "weekly")
+      indicator = @stock.indicator(function: "TRANGE", interval: "weekly")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -576,7 +576,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator ATR" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "ATR", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "ATR", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -588,7 +588,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator NATR" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "NATR", interval: "weekly", time_period: "60")
+      indicator = @stock.indicator(function: "NATR", interval: "weekly", time_period: "60")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -600,7 +600,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator AD" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "AD", interval: "weekly")
+      indicator = @stock.indicator(function: "AD", interval: "weekly")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -612,7 +612,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator ADOSC" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "ADOSC", interval: "weekly", fastperiod: "12", slowperiod: "26")
+      indicator = @stock.indicator(function: "ADOSC", interval: "weekly", fastperiod: "12", slowperiod: "26")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -626,7 +626,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator OBV" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "OBV", interval: "weekly")
+      indicator = @stock.indicator(function: "OBV", interval: "weekly")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -638,7 +638,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator HT_TRENDLINE" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "HT_TRENDLINE", interval: "weekly", series_type: "close")
+      indicator = @stock.indicator(function: "HT_TRENDLINE", interval: "weekly", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -651,7 +651,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator HT_SINE" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "HT_SINE", interval: "weekly", series_type: "close")
+      indicator = @stock.indicator(function: "HT_SINE", interval: "weekly", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -665,7 +665,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator HT_TRENDMODE" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "HT_TRENDMODE", interval: "weekly", series_type: "close")
+      indicator = @stock.indicator(function: "HT_TRENDMODE", interval: "weekly", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -678,7 +678,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator HT_DCPERIOD" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "HT_DCPERIOD", interval: "weekly", series_type: "close")
+      indicator = @stock.indicator(function: "HT_DCPERIOD", interval: "weekly", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -691,7 +691,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator HT_DCPHASE" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "HT_DCPHASE", interval: "weekly", series_type: "close")
+      indicator = @stock.indicator(function: "HT_DCPHASE", interval: "weekly", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)
@@ -704,7 +704,7 @@ describe Alphavantage::Indicator do
 
     it "can be indicator HT_PHASOR" do
       bool = []
-      sleep(1); indicator = @stock.indicator(function: "HT_PHASOR", interval: "weekly", series_type: "close")
+      indicator = @stock.indicator(function: "HT_PHASOR", interval: "weekly", series_type: "close")
         bool << (indicator.symbol == "MSFT")
         bool << indicator.indicator.is_a?(String)
         bool << indicator.last_refreshed.is_a?(String)

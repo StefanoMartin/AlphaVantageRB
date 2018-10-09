@@ -8,19 +8,19 @@ describe Alphavantage::Stock do
     end
 
     it "create a new stock from stock" do
-      sleep(1); timeseries = @client.stock(symbol: "MSFT").timeseries(type: "daily", outputsize: "compact")
+      timeseries = @client.stock(symbol: "MSFT").timeseries(type: "daily", outputsize: "compact")
       expect(timeseries.class).to eq Alphavantage::Timeseries
     end
 
     it "own multiple data" do
-      sleep(1); timeseries = @client.stock(symbol: "MSFT").timeseries(type: "daily", outputsize: "full")
+      timeseries = @client.stock(symbol: "MSFT").timeseries(type: "daily", outputsize: "full")
       bool = []
       bool << timeseries.information.is_a?(String)
       bool << (timeseries.symbol == "MSFT")
       bool << timeseries.last_refreshed.is_a?(String)
       bool << (timeseries.output_size == "Full size")
       bool << timeseries.time_zone.is_a?(String)
-      bool << timeseries.hash.is_a?(Hash)
+      bool << timeseries.output.is_a?(Hash)
       bool << timeseries.open.is_a?(Array)
       bool << timeseries.high.is_a?(Array)
       bool << timeseries.low.is_a?(Array)
@@ -30,7 +30,7 @@ describe Alphavantage::Stock do
     end
 
     it "can retrieve intraday" do
-      sleep(1); timeseries = @client.stock(symbol: "MSFT").timeseries(type: "intraday", interval: "30min")
+      timeseries = @client.stock(symbol: "MSFT").timeseries(type: "intraday", interval: "30min")
       bool = []
       bool << timeseries.information.is_a?(String)
       bool << (timeseries.symbol == "MSFT")
@@ -38,7 +38,7 @@ describe Alphavantage::Stock do
       bool << (timeseries.interval == "30min")
       bool << (timeseries.output_size == "Compact")
       bool << timeseries.time_zone.is_a?(String)
-      bool << timeseries.hash.is_a?(Hash)
+      bool << timeseries.output.is_a?(Hash)
       bool << timeseries.open.is_a?(Array)
       bool << timeseries.high.is_a?(Array)
       bool << timeseries.low.is_a?(Array)
@@ -48,14 +48,14 @@ describe Alphavantage::Stock do
     end
 
     it "can retrieve adjusted data" do
-      sleep(1); timeseries = @client.stock(symbol: "MSFT").timeseries(type: "daily", outputsize: "compact", adjusted: true)
+      timeseries = @client.stock(symbol: "MSFT").timeseries(type: "daily", outputsize: "compact", adjusted: true)
       bool = []
       bool << timeseries.information.is_a?(String)
       bool << (timeseries.symbol == "MSFT")
       bool << timeseries.last_refreshed.is_a?(String)
       bool << (timeseries.output_size == "Compact")
       bool << timeseries.time_zone.is_a?(String)
-      bool << timeseries.hash.is_a?(Hash)
+      bool << timeseries.output.is_a?(Hash)
       bool << timeseries.open.is_a?(Array)
       bool << timeseries.high.is_a?(Array)
       bool << timeseries.low.is_a?(Array)
@@ -71,7 +71,7 @@ describe Alphavantage::Stock do
       bool = []
       directory = "#{__dir__}/test.csv"
       bool << File.exists?(directory)
-      sleep(1); @client.stock(symbol: "MSFT").timeseries(type: "daily",
+      @client.stock(symbol: "MSFT").timeseries(type: "daily",
         outputsize: "compact", adjusted: true, datatype: "csv", file: directory)
       bool << File.exists?(directory)
       File.delete(directory)
@@ -81,7 +81,7 @@ describe Alphavantage::Stock do
     # it "cannot retrieve with wrong key" do
     #   error = false
     #   begin
-    #     sleep(1); stock = Alphavantage::Timeseries.new symbol: "MSFT", key:"wrong key"
+    #     stock = Alphavantage::Timeseries.new symbol: "MSFT", key:"wrong key"
     #   rescue Alphavantage::Error => e
     #     error = true
     #   end
@@ -91,7 +91,7 @@ describe Alphavantage::Stock do
     it "cannot retrieve with wrong symbol" do
       error = false
       begin
-        sleep(1); stock = Alphavantage::Timeseries.new symbol: "wrong_symbol", key: @config["key"]
+        stock = Alphavantage::Timeseries.new symbol: "wrong_symbol", key: @config["key"]
       rescue Alphavantage::Error => e
         error = true
       end

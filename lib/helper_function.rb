@@ -11,6 +11,25 @@ module HelperFunctions
     end
   end
 
+  def check_datatype(datatype, file)
+    if datatype == "csv" && file.nil?
+      raise Alphavantage::Error.new message: "No file specified where to save the CSV ata"
+    elsif datatype != "csv" && !file.nil?
+      raise Alphavantage::Error.new message: "Hash error: No file necessary"
+    end
+  end
+
+  def open_struct(url, type)
+    output = OpenStruct.new
+    output.output = @client.request(url)
+    global_quote = output.output.dig(type) || {}
+    global_quote.each do |key, val|
+      key_sym = recreate_metadata_key(key)
+      output[key_sym] = val
+    end
+    return output
+  end
+
   def return_matype(val, val_string)
     check_argument(["0", "1", "2", "3", "4", "5", "6", "7", "8", "SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "T3", "KAMA", "MAMA"], val, "ma_type")
     hash = {"SMA" => "0", "EMA" => "1", "WMA" => "2", "DEMA" => "3",
@@ -68,5 +87,13 @@ module HelperFunctions
     key_sym = key_sym.downcase.lstrip.gsub(" ", "_")
     key_sym = key_sym.to_sym
     return key_sym
+  end
+
+  def which_series(type, name_series, adjusted: false)
+    check_argument(["intraday", "daily", "weekly", "monthly"], type, "type")
+    series = "#{name_series}_"
+    series += type.upcase
+    series += "_ADJUSTED" if adjusted
+    return series
   end
 end

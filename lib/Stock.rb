@@ -1,8 +1,7 @@
 module Alphavantage
   class Stock
     include HelperFunctions
-
-    def initialize symbol:, datatype: "json", key:, verbose: false
+    def initialize symbol:,  datatype: "json", key:, verbose: false
       check_argument([true, false], verbose, "verbose")
       @client = return_client(key, verbose)
       @symbol = symbol
@@ -15,6 +14,13 @@ module Alphavantage
     def datatype=(datatype)
       check_argument(["json", "csv"], datatype, "datatype")
       @datatype = datatype
+    end
+
+    def quote file: nil, datatype: @datatype
+      check_datatype(datatype, file)
+      url = "function=GLOBAL_QUOTE&symbol=#{symbol}"
+      return @client.download(url, file) if datatype == "csv"
+      return open_struct(url, "Global Quote")
     end
 
     def timeseries type: "daily", interval: nil, outputsize: "compact",

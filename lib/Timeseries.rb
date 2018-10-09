@@ -18,17 +18,14 @@ module Alphavantage
       end
       check_argument(["compact", "full"], outputsize, "outputsize")
       check_argument(["json", "csv"], datatype, "datatype")
-      if datatype == "csv" && file.nil?
-        raise Alphavantage::Error.new message: "No file specified where to save the CSV ata"
-      elsif datatype != "csv" && !file.nil?
-        raise Alphavantage::Error.new message: "Hash error: No file necessary"
-      end
+      check_datatype(datatype, file)
 
-      @selected_time_series = which_series(type, adjusted)
+      @selected_time_series = which_series(type, "TIME_SERIES",
+        adjusted: adjusted)
       url = "function=#{@selected_time_series}&symbol=#{symbol}#{interval}&outputsize=#{outputsize}"
       return @client.download(url, file) if datatype == "csv"
-      @hash = @client.request(url)
-      metadata = @hash.dig("Meta Data") || {}
+      @output = @client.request(url)
+      metadata = @output.dig("Meta Data") || {}
       metadata.each do |key, val|
         key_sym = recreate_metadata_key(key)
         define_singleton_method(key_sym) do
@@ -37,10 +34,10 @@ module Alphavantage
       end
 
       begin
-        time_series = @hash.find{|key, val| key.include?("Time Series")}[1]
+        time_series = @output.find{|key, val| key.include?("Time Series")}[1]
       rescue Exception => e
         raise Alphavantage::Error.new message: "No Time Series found: #{e.message}",
-          data: @hash
+          data: @output
       end
 
       series = {}
@@ -63,14 +60,6 @@ module Alphavantage
       end
     end
 
-    attr_reader :hash
-
-    def which_series(type, adjusted)
-      check_argument(["intraday", "daily", "weekly", "monthly"], type, "type")
-      series = "TIME_SERIES_"
-      series += type.upcase
-      series += "_ADJUSTED" if adjusted
-      return series
-    end
+    attr_reader :output
   end
 end

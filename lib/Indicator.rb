@@ -94,8 +94,8 @@ module Alphavantage
         url += return_int_val(maximum, "maximum", "float")
       end
 
-      @hash = @client.request(url)
-      metadata = @hash.dig("Meta Data") || {}
+      @output = @client.request(url)
+      metadata = @output.dig("Meta Data") || {}
       metadata.each do |key, val|
         key_sym = recreate_metadata_key(key)
         define_singleton_method(key_sym) do
@@ -104,10 +104,10 @@ module Alphavantage
       end
 
       begin
-        time_series = @hash.find{|key, val| key.include?("Technical Analysis")}[1]
+        time_series = @output.find{|key, val| key.include?("Technical Analysis")}[1]
       rescue Exception => e
         raise Alphavantage::Error.new message: "No Time Series found: #{e.message}",
-          data: @hash
+          data: @output
       end
 
       series = {}
@@ -130,6 +130,6 @@ module Alphavantage
       end
     end
 
-    attr_reader :hash
+    attr_reader :output
   end
 end

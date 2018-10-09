@@ -1,16 +1,25 @@
 module Alphavantage
-  class Crypto_Timeseries
+  class Exchange_Timeseries
     include HelperFunctions
 
-    def initialize type: "intraday", market:, symbol:, datatype: "json", file: nil,
-      key:, verbose: false
+    def initialize type: "intraday", from:, to:, datatype: "json", file: nil,
+      key:, verbose: false, outputsize: "compact", interval: nil
       check_argument([true, false], verbose, "verbose")
       @client = return_client(key, verbose)
+      if type == "intraday"
+        interval ||= "1min"
+        check_argument(["1min", "5min", "15min", "30min", "60min"], interval, "interval")
+        interval = "&interval=#{interval}"
+      else
+        check_argument([nil], interval, "interval")
+        interval = ""
+      end
+      check_argument(["compact", "full"], outputsize, "outputsize")
       check_argument(["json", "csv"], datatype, "datatype")
       check_datatype(datatype, file)
 
-      @selected_time_series = which_series(type, "DIGITAL_CURRENCY")
-      url = "function=#{@selected_time_series}&symbol=#{symbol}&market=#{market}"
+      @selected_time_series = which_series(type, "FX")
+      url = "function=#{@selected_time_series}&from_symbol=#{from}&to_symbol=#{to}#{interval}&outputsize=#{outputsize}"
       return @client.download(url, file) if datatype == "csv"
       @output = @client.request(url)
       metadata = @output.dig("Meta Data") || {}
@@ -20,9 +29,7 @@ module Alphavantage
           return val
         end
       end
-      @open = []; @high = []; @low = []; @close = []; @volume = [];
-      @open_usd = []; @high_usd = []; @low_usd = []; @close_usd = [];
-      @market_cap_usd = [];
+      @open = []; @high = []; @low = []; @close = [];
 
       begin
         time_series = @output.find{|key, val| key.include?("Time Series")}[1]

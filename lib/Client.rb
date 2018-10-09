@@ -51,16 +51,30 @@ module Alphavantage
       return "CSV saved in #{file}"
     end
 
-    def batch(symbols:, datatype: "json", file: nil)
-      Alphavantage::Batch.new symbols: symbols, key: self, datatype: datatype, file: file
+    def search(keywords:, datatype: "json", file: nil)
+      check_datatype(datatype, file)
+      url = "function=SYMBOL_SEARCH&keywords=#{keywords}"
+      return download(url, file) if datatype == "csv"
+      output = OpenStruct.new
+      output.output = request(url)
+      bestMatches = output.output.dig("bestMatches") || {}
+      output.stocks = bestMatches.map do |bm|
+        val = OpenStruct.new
+        bm.each do |key, valz|
+          key_sym = recreate_metadata_key(key)
+          val[key_sym] = valz
+        end
+        val.stock = Alphavantage::Stock.new(symbol: bm["1. symbol"], key: self)
+      end
+      return output
     end
 
     def stock(symbol:, datatype: "json")
       Alphavantage::Stock.new symbol: symbol, key: self, datatype: datatype
     end
 
-    def exchange(from:, to:)
-      Alphavantage::Exchange.new from: from, to: to, key: self
+    def exchange(from:, to:, datatype: "json")
+      Alphavantage::Exchange.new from: from, to: to, key: self, datatype: datatype
     end
 
     def crypto(symbol:, market:, datatype: "json")

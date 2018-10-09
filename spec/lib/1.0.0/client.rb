@@ -26,8 +26,13 @@ describe Alphavantage::Client do
       expect(stock.class).to eq Alphavantage::Stock
     end
 
+    it "can search a new stock from client" do
+      search = @client.search keywords: "MSFT"
+      expect(search.stocks[0].class).to eq Alphavantage::Stock
+    end
+
     it "can create a new exchange from client" do
-      sleep(1); exchange = @client.exchange from: "USD", to: "DKK"
+      exchange = @client.exchange from: "USD", to: "DKK"
       expect(exchange.class).to eq Alphavantage::Exchange
     end
 
@@ -37,7 +42,7 @@ describe Alphavantage::Client do
     end
 
     it "can create a new sector from client" do
-      sleep(1); sector = @client.sector
+      sector = @client.sector
       expect(sector.class).to eq Alphavantage::Sector
     end
   end

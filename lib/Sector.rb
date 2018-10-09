@@ -5,15 +5,15 @@ module Alphavantage
     def initialize key:, verbose: false
       check_argument([true, false], verbose, "verbose")
       @client = return_client(key, verbose)
-      @hash = @client.request("function=SECTOR")
-      metadata = @hash.dig("Meta Data") || {}
+      @output = @client.request("function=SECTOR")
+      metadata = @output.dig("Meta Data") || {}
       metadata.each do |key, val|
         key_sym = key.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_").to_sym
         define_singleton_method(key_sym) do
           return val
         end
       end
-      @hash.each do |key, val|
+      @output.each do |key, val|
         next if key == "Meta Data"
         key = key.split(":")[1].lstrip
         key = key.split(" ")
@@ -29,6 +29,6 @@ module Alphavantage
       end
     end
 
-    attr_reader :hash
+    attr_reader :output
   end
 end
