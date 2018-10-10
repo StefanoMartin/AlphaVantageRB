@@ -28,7 +28,7 @@ describe Alphavantage::Client do
 
     it "can search a new stock from client" do
       search = @client.search keywords: "MSFT"
-      expect(search.stocks[0].class).to eq Alphavantage::Stock
+      expect(search.stocks[0].stock.class).to eq Alphavantage::Stock
     end
 
     it "can create a new exchange from client" do

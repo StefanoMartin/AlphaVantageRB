@@ -10,6 +10,16 @@ To install AlphavantageRB: `gem install alphavantagerb`
 
 To use it in your application: `require "alphavantagerb"`
 
+## How to test
+
+To test the Gem create a config.yml file inside the folder /spec with inside a line
+``` ruby
+key: [YOUR KEY]
+```
+
+Then run "rspec spec/test_all.rb".
+Since AlphaVantage does not permit more than 5 request for minutes, many of your tests will fail. I advice either having a premium account or, like me, trying each file of test from the folder "spec/lib/1.0.0".
+
 ## Classes
 
 AlphavantateRB has the following classes:
@@ -18,12 +28,12 @@ AlphavantateRB has the following classes:
   Vantage
 * [Alphavantage::Stock](#Stock): to create a stock class
 * [Alphavantage::Timeseries](#Timeseries): to retrieve historical data of a stock
-* [Alphavantage::Batch](#Batch): to retrieve multiple stock data at once
 * [Alphavantage::Indicator](#Indicator): to use some technical indicator of a stock
 * [Alphavantage::Crypto](#Crypto): to create a crypto currency class
 * [Alphavantage::Crypto_Timeseries](#Crypto_Timeseries): to retrieve historical
   data of a crypto currency
 * [Alphavantage::Exchange](#Exchange): to retrieve how a currency is exchanged currently on the market
+* [Alphavantage::Exchange_Timeseries](#Exchange_Timeseries): to retrieve historical data of how a currency is exchanged currently on the market
 * [Alphavantage::Sector](#Sector): to retrieve the status of the historical sector performances calculated from S&P500 incumbents
 * [Alphavantage::Error](#Error): to manage AlphavantageRB errors
 
@@ -42,7 +52,32 @@ If you want to see the request that the client will do to Alpha Vantage you can
 setup verbose equal to true.
 
 ``` ruby
-client.verbose = true # You can setup this during the initialization too
+  client.verbose = true # You can setup this during the initialization too
+```
+
+You can use the method search to find some stocks by name.
+``` ruby
+  stocks_found = client.search keywords: "MSFT"
+  stocks_found.output # Return the hash retrieved
+```
+
+This will return an array where each elements has the following structure:
+``` ruby
+  stocks_found.stocks[0].symbol
+  stocks_found.stocks[0].name
+  stocks_found.stocks[0].type
+  stocks_found.stocks[0].region
+  stocks_found.stocks[0].marketopen
+  stocks_found.stocks[0].marketclose
+  stocks_found.stocks[0].timezone
+  stocks_found.stocks[0].currency
+  stocks_found.stocks[0].matchscore
+```
+
+Furthermore you can retrieve its respective AlphaVantage::Stock instance by using:
+
+``` ruby
+  stocks_found.stocks[0].stock
 ```
 
 <a name="Stock"></a>
@@ -67,7 +102,7 @@ Note that the initialization owns different entry:
 You can setup the datatype of future retrieving by doing:
 
 ``` ruby
-stock.datatype = "csv"
+  stock.datatype = "csv"
 ```
 
 <a name="Timeseries"></a>
@@ -96,7 +131,7 @@ Note that the initialization owns different entries:
 
 You can retrieve all the output from Alpha Vantage by doing.
 ``` ruby
-  timeseries.hash
+  timeseries.output
 ```
 
 Specific information about the timeseries can be retrieved using the following methods:
@@ -131,44 +166,6 @@ You can order the data in ascending or descending order.
   timeseries.open("asc")
 ```
 
-<a name="Batch"></a>
-## Alphavantage::Batch
-
-Alphavantage::Batch is used to retrieve the last updated values of multiple stocks.
-To create a new Batch class you can use a Client class or you can create it directly.
-These two creation commands are equivalent:
-
-``` ruby
-batch = client.batch symbols: ["MSFT", "FB", "AAPL"]
-batch = Alphavantage::Batch.new symbols: ["MSFT", "FB", "AAPL"], key: "YOURKEY"
-```
-
-Note that the initialization owns different entries:
-* symbols: it is an array of string that denote the stocks you want to retrieve.
-* key: authentication key.  This value cannot be setup if you are initializing a batch from a client
-* verbose: used to see the request to Alpha Vantage (default false). This value cannot be setup if you are initializing a batch from a client
-* datatype: it can be "json" or "csv" (default "json")
-* file: path where a csv file should be saved (default "nil")
-
-You can retrieve all the output from Alpha Vantage by doing.
-``` ruby
-  batch.hash
-```
-
-The array of the stocks is found by using:
-``` ruby
-  batch.stock_quotes
-```
-
-Specific information about the batch can be retrieved using the following methods:
-
-``` ruby
-  batch.information # Retrieve information about the batch
-  batch.symbols # Symbols used by the batch
-  batch.notes # Generic notes of the batch
-  batch.time_zone # Time zone of the batch
-```
-
 <a name="Indicator"></a>
 ## Alphavantage::Indicator
 
@@ -201,7 +198,7 @@ The MA parameters accept as an entry one of these attributes: "0", "1", "2", "3"
 Each indicator has several methods that can use in relation of the type. Some are used for each indicator.
 ``` ruby
 indicator = stock.indicator(function: "SMA", interval: "weekly", time_period: "60", series_type: "close")
-indicator.hash # Retrieve the output from Alpha vantage
+indicator.output # Retrieve the output from Alpha vantage
 indicator.symbol
 indicator.interval
 indicator.indicator
@@ -680,7 +677,7 @@ Note that the initialization owns different entries:
 
 You can retrieve all the output from Alpha Vantage by doing.
 ``` ruby
-  crypto_timeseries.hash
+  crypto_timeseries.output
 ```
 
 Specific information about the timeseries can be retrieved using the following methods:
@@ -740,24 +737,82 @@ Note that the initialization owns different entry:
 * verbose: used to see the request to Alpha Vantage (default false). This value cannot be setup if you are initializing a timeseries from a stock
 * datatype: it can be "json" or "csv" (default "json")  
 
-You can retrieve all the output from Alpha Vantage by doing.
+You can retrieve the actual situation of the exchange from Alpha Vantage by doing.
 ``` ruby
-  exchange.hash
+  ex_now = exchange.now
 ```
 
 Other information can be retrieved using the following methods:
 
 ``` ruby
-  exchange.from_currency_code # Code of the from currency
-  exchange.from_currency_name # Name of the from currency
-  exchange.to_currency_code  # Code of the to currency
-  exchange.to_currency_name # Name of the to currency
-  exchange.exchange_rate # Exchange rate between the two currencies
-  exchange.information # Retrieve information about the timeseries
-  exchange.symbol # Symbol used by the timeseries
+  ex_now.from_currency_code # Code of the from currency
+  ex_now.from_currency_name # Name of the from currency
+  ex_now.to_currency_code  # Code of the to currency
+  ex_now.to_currency_name # Name of the to currency
+  ex_now.exchange_rate # Exchange rate between the two currencies
+  ex_now.information # Retrieve information about the timeseries
+  ex_now.symbol # Symbol used by the timeseries
   exchange.last_refreshed # A timestamp that show when last time the data were refreshed
-  exchange.output_size # Size of the output
-  exchange.time_zone # Time zone of the timeseries
+  ex_now.output_size # Size of the output
+  ex_now.time_zone # Time zone of the timeseries
+```
+
+<a name="Exchange_Timeseries"></a>
+## Alphavantage::Exchange_Timeseries
+
+Alphavantage::Exchange_Timeseries is used to retrieve historical data of an exchange currency.
+To create a new Exchange_Timeseries class you can use an Exchange class or you can create it directly.
+These two creation commands are equivalent:
+
+``` ruby
+exchange_timeseries = exchange.timeseries type: "daily"
+exchange_timeseries = Alphavantage::Exchange_Timeseries.new from: "USD", to: "DKK", key: "YOURKEY", type: "daily"
+```
+
+Note that the initialization owns different entries:
+* symbol: it is a string that denote the stock you want to retrieve. This value cannot be setup if you are initializing a timeseries from a stock
+* key: authentication key.  This value cannot be setup if you are initializing a timeseries from a stock
+* verbose: used to see the request to Alpha Vantage (default false). This value cannot be setup if you are initializing a timeseries from a stock
+* type: it can be "intraday", "daily", "weekly", "monthly" (default "daily")
+* adjusted: a boolean value, it returns adjusted values (default false)
+* interval: it can be "1min", "5min", "15min", "30min", or "60min". It is used
+  only if type is "intraday" (default nil)
+* outputsize: it can be "compact", or "full" (default "compact")
+* datatype: it can be "json" or "csv" (default "json")
+* file: path where a csv file should be saved (default "nil")
+
+You can retrieve all the output from Alpha Vantage by doing.
+``` ruby
+  exchange_timeseries.output
+```
+
+Specific information about the timeseries can be retrieved using the following methods:
+
+``` ruby
+  exchange_timeseries.information # Retrieve information about the timeseries
+  exchange_timeseries.from_symbol # Code of the from symbol
+  exchange_timeseries.to_symbol # Code of the to symbol
+  exchange_timeseries.last_refreshed # A timestamp that show when last time the data were refreshed
+  exchange_timeseries.output_size # Size of the output
+  exchange_timeseries.time_zone # Time zone of the timeseries
+```
+
+Specific data can be retrieved using the following methods.
+These methods will return an array of couples where the first entry is a timestampand the second one is the value of the stock at the timestamp.
+These timeseries return always the corrispective timeseries in relation of the USD market.
+
+``` ruby
+  exchange_timeseries.open
+  exchange_timeseries.close
+  exchange_timeseries.high
+  exchange_timeseries.low
+```
+
+You can order the data in ascending or descending order.
+
+``` ruby
+  exchange_timeseries.open("desc") # Default
+  exchange_timeseries.open("asc")
 ```
 
 <a name="Sector"></a>
@@ -777,7 +832,7 @@ Note that the initialization owns different entries:
 
 You can retrieve all the output from Alpha Vantage by doing.
 ``` ruby
-  sector.hash
+  sector.output
 ```
 
 Specific information about the timeseries can be retrieved using the following methods:

@@ -65,6 +65,7 @@ module Alphavantage
           val[key_sym] = valz
         end
         val.stock = Alphavantage::Stock.new(symbol: bm["1. symbol"], key: self)
+        val
       end
       return output
     end
