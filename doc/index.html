@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.16
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-AlphavantageRB+rdoc-image-3Ahttps-3A-2F-2Fbadge.fury.io-2Frb-2Falphavantagerb.svg">AlphavantageRB <a href="https://badge.fury.io/rb/alphavantagerb"><img src="https://badge.fury.io/rb/alphavantagerb.svg"></a></h1>
+
+<p>Last update: 10/10/2018</p>
+
+<p><a href="https://www.alphavantage.co/">Alpha Vantage</a> is a great API for
+retrieving Stock market data in JSON or CSV format. AlphavantageRB is a Gem
+to use Alpha Vantage with Ruby. AlphavantageRB is based on the <a
+href="https://www.alphavantage.co/documentation/">HTTP API of Alpha
+Vantage</a>.</p>
+
+<p>To install AlphavantageRB: <code>gem install alphavantagerb</code></p>
+
+<p>To use it in your application: <code>require
+&quot;alphavantagerb&quot;</code></p>
+
+<h2 id="label-How+to+test">How to test</h2>
+
+<p>To test the Gem create a config.yml file inside the folder /spec with
+inside a line</p>
+
+<pre class="code ruby"><code class="ruby">key: [YOUR KEY]
+</code></pre>
+
+<p>Then run “rspec spec/test_all.rb”. Since AlphaVantage does not permit more
+than 5 request for minutes, many of your tests will fail. I advice either
+having a premium account or, like me, trying each file of test from the
+folder “spec/lib/1.0.0”.</p>
+
+<h2 id="label-Classes">Classes</h2>
+
+<p>AlphavantateRB has the following classes:</p>
+<ul><li>
+<p><a href="#Client">Alphavantage::Client</a>: to manage the credentials to
+contact Alpha  Vantage</p>
+</li><li>
+<p><a href="#Stock">Alphavantage::Stock</a>: to create a stock class</p>
+</li><li>
+<p><a href="#Timeseries">Alphavantage::Timeseries</a>: to retrieve historical
+data of a stock</p>
+</li><li>
+<p><a href="#Indicator">Alphavantage::Indicator</a>: to use some technical
+indicator of a stock</p>
+</li><li>
+<p><a href="#Crypto">Alphavantage::Crypto</a>: to create a crypto currency
+class</p>
+</li><li>
+<p><a href="#Crypto_Timeseries">Alphavantage::Crypto_Timeseries</a>: to
+retrieve historical  data of a crypto currency</p>
+</li><li>
+<p><a href="#Exchange">Alphavantage::Exchange</a>: to retrieve how a currency
+is exchanged currently on the market</p>
+</li><li>
+<p><a href="#Exchange_Timeseries">Alphavantage::Exchange_Timeseries</a>: to
+retrieve historical data of how a currency is exchanged currently on the
+market</p>
+</li><li>
+<p><a href="#Sector">Alphavantage::Sector</a>: to retrieve the status of the
+historical sector performances calculated from S&amp;P500 incumbents</p>
+</li><li>
+<p><a href="#Error">Alphavantage::Error</a>: to manage AlphavantageRB errors</p>
+</li></ul>
+<a name="Client"></a>
+<h2 id="label-Alphavantage-3A-3AClient">Alphavantage::Client</h2>
+
+<p>Alphavantage::Client is used to create a client that will be used from the
+AlphavantageRB to contact the website. To contact Alpha Vantage you need to
+use a valid key that you can require from <a
+href="https://www.alphavantage.co/support/#api-key">here</a>.</p>
+
+<p>To setup your credentials use:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Alphavantage.html" title="Alphavantage (module)">Alphavantage</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Alphavantage/Client.html" title="Alphavantage::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Alphavantage/Client.html#initialize-instance_method" title="Alphavantage::Client#initialize (method)">new</a></span></span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>YOURKEY</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<p>If you want to see the request that the client will do to Alpha Vantage you
+can setup verbose equal to true.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_verbose'>verbose</span> <span class='op'>=</span> <span class='kw'>true</span> <span class='comment'># You can setup this during the initialization too
+</span></code></pre>
+
+<p>You can use the method search to find some stocks by name.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stocks_found'>stocks_found</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_search'>search</span> <span class='label'>keywords:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MSFT</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_stocks_found'>stocks_found</span><span class='period'>.</span><span class='id identifier rubyid_output'>output</span> <span class='comment'># Return the hash retrieved
+</span></code></pre>
+
+<p>This will return an array where each elements has the following structure:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stocks_found'>stocks_found</span><span class='period'>.</span><span class='id identifier rubyid_stocks'>stocks</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_symbol'>symbol</span>
+  <span class='id identifier rubyid_stocks_found'>stocks_found</span><span class='period'>.</span><span class='id identifier rubyid_stocks'>stocks</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+  <span class='id identifier rubyid_stocks_found'>stocks_found</span><span class='period'>.</span><span class='id identifier rubyid_stocks'>stocks</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_type'>type</span>
+  <span class='id identifier rubyid_stocks_found'>stocks_found</span><span class='period'>.</span><span class='id identifier rubyid_stocks'>stocks</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_region'>region</span>
+  <span class='id identifier rubyid_stocks_found'>stocks_found</span><span class='period'>.</span><span class='id identifier rubyid_stocks'>stocks</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_marketopen'>marketopen</span>
+  <span class='id identifier rubyid_stocks_found'>stocks_found</span><span class='period'>.</span><span class='id identifier rubyid_stocks'>stocks</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_marketclose'>marketclose</span>
+  <span class='id identifier rubyid_stocks_found'>stocks_found</span><span class='period'>.</span><span class='id identifier rubyid_stocks'>stocks</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_timezone'>timezone</span>
+  <span class='id identifier rubyid_stocks_found'>stocks_found</span><span class='period'>.</span><span class='id identifier rubyid_stocks'>stocks</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_currency'>currency</span>
+  <span class='id identifier rubyid_stocks_found'>stocks_found</span><span class='period'>.</span><span class='id identifier rubyid_stocks'>stocks</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_matchscore'>matchscore</span>
+</code></pre>
+
+<p>Furthermore you can retrieve its respective AlphaVantage::Stock instance by
+using:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stocks_found'>stocks_found</span><span class='period'>.</span><span class='id identifier rubyid_stocks'>stocks</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_stock'>stock</span>
+</code></pre>
+<a name="Stock"></a>
+<h2 id="label-Alphavantage-3A-3AStock">Alphavantage::Stock</h2>
+
+<p>Alphavantage::Stock is used to create a stock class to manage future
+retrieving of timeseries or technical indicators.</p>
+
+<p>To create a new Stock class you can use a client or you can create it
+directly. These two creation commands are equivalent:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stock'>stock</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_stock'>stock</span> <span class='label'>symbol:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MSFT</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_stock'>stock</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Alphavantage.html" title="Alphavantage (module)">Alphavantage</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Alphavantage/Stock.html" title="Alphavantage::Stock (class)">Stock</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Alphavantage/Stock.html#initialize-instance_method" title="Alphavantage::Stock#initialize (method)">new</a></span></span> <span class='label'>symbol:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MSFT</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>YOURKEY</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<p>Note that the initialization owns different entry:</p>
+<ul><li>
+<p>symbol: it is a string that denote the stock you want to retrieve.</p>
+</li><li>
+<p>key: authentication key. This value cannot be setup if you are initializing
+a Stock class from a client</p>
+</li><li>
+<p>verbose: used to see the request to Alpha Vantage (default false). This
+value cannot be setup if you are initializing a timeseries from a stock</p>
+</li><li>
+<p>datatype: it can be “json” or “csv” (default “json”)</p>
+</li></ul>
+
+<p>You can setup the datatype of future retrieving by doing:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_datatype'>datatype</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>csv</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<p>You can retrieve an Openstruct document of the actual status of the stock
+by using:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stock_quote'>stock_quote</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_quote'>quote</span>
+</code></pre>
+
+<p>This include different method with several information:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_stock_quote'>stock_quote</span><span class='period'>.</span><span class='id identifier rubyid_output'>output</span> <span class='comment'># Output of the request
+</span><span class='id identifier rubyid_stock_quote'>stock_quote</span><span class='period'>.</span><span class='id identifier rubyid_symbol'>symbol</span>
+<span class='id identifier rubyid_stock_quote'>stock_quote</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span>
+<span class='id identifier rubyid_stock_quote'>stock_quote</span><span class='period'>.</span><span class='id identifier rubyid_high'>high</span>
+<span class='id identifier rubyid_stock_quote'>stock_quote</span><span class='period'>.</span><span class='id identifier rubyid_low'>low</span>
+<span class='id identifier rubyid_stock_quote'>stock_quote</span><span class='period'>.</span><span class='id identifier rubyid_price'>price</span>
+<span class='id identifier rubyid_stock_quote'>stock_quote</span><span class='period'>.</span><span class='id identifier rubyid_volume'>volume</span>
+<span class='id identifier rubyid_stock_quote'>stock_quote</span><span class='period'>.</span><span class='id identifier rubyid_latest_trading_day'>latest_trading_day</span>
+<span class='id identifier rubyid_stock_quote'>stock_quote</span><span class='period'>.</span><span class='id identifier rubyid_previous_close'>previous_close</span>
+<span class='id identifier rubyid_stock_quote'>stock_quote</span><span class='period'>.</span><span class='id identifier rubyid_change'>change</span>
+<span class='id identifier rubyid_stock_quote'>stock_quote</span><span class='period'>.</span><span class='id identifier rubyid_change_percent'>change_percent</span>
+</code></pre>
+<a name="Timeseries"></a>
+<h2 id="label-Alphavantage-3A-3ATimeseries">Alphavantage::Timeseries</h2>
+
+<p>Alphavantage::Timeseries is used to retrieve historical data. To create a
+new Timeseries class you can use a Stock class or you can create it
+directly. These two creation commands are equivalent:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_timeseries'>timeseries</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_timeseries'>timeseries</span>
+<span class='id identifier rubyid_timeseries'>timeseries</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Alphavantage.html" title="Alphavantage (module)">Alphavantage</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Alphavantage/Timeseries.html" title="Alphavantage::Timeseries (class)">Timeseries</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Alphavantage/Timeseries.html#initialize-instance_method" title="Alphavantage::Timeseries#initialize (method)">new</a></span></span> <span class='label'>symbol:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MSFT</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>YOURKEY</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<p>Note that the initialization owns different entries:</p>
+<ul><li>
+<p>symbol: it is a string that denote the stock you want to retrieve. This
+value cannot be setup if you are initializing a timeseries from a stock</p>
+</li><li>
+<p>key: authentication key. This value cannot be setup if you are initializing
+a timeseries from a stock</p>
+</li><li>
+<p>verbose: used to see the request to Alpha Vantage (default false). This
+value cannot be setup if you are initializing a timeseries from a stock</p>
+</li><li>
+<p>type: it can be “intraday”, “daily”, “weekly”, “monthly” (default “daily”)</p>
+</li><li>
+<p>adjusted: a boolean value, it returns adjusted values (default false)</p>
+</li><li>
+<p>interval: it can be “1min”, “5min”, “15min”, “30min”, or “60min”. It is
+used  only if type is “intraday” (default nil)</p>
+</li><li>
+<p>outputsize: it can be “compact”, or “full” (default “compact”)</p>
+</li><li>
+<p>datatype: it can be “json” or “csv” (default “json”)</p>
+</li><li>
+<p>file: path where a csv file should be saved (default “nil”)</p>
+</li></ul>
+
+<p>You can retrieve all the output from Alpha Vantage by doing.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_output'>output</span>
+</code></pre>
+
+<p>Specific information about the timeseries can be retrieved using the
+following methods:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_information'>information</span> <span class='comment'># Retrieve information about the timeseries
+</span>  <span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_symbol'>symbol</span> <span class='comment'># Symbol used by the timeseries
+</span>  <span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_last_refreshed'>last_refreshed</span> <span class='comment'># A timestamp that show when last time the data were refreshed
+</span>  <span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_output_size'>output_size</span> <span class='comment'># Size of the output
+</span>  <span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_time_zone'>time_zone</span> <span class='comment'># Time zone of the timeseries
+</span></code></pre>
+
+<p>Specific data can be retrieved using the following methods. These methods
+will return an array of couples where the first entry is a timestamp and
+the second one is the value of the stock at the timestamp.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span>
+  <span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
+  <span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_high'>high</span>
+  <span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_low'>low</span>
+  <span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_volume'>volume</span>
+  <span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_adjusted_close'>adjusted_close</span> <span class='comment'># Available only if adjusted is true
+</span>  <span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_dividend_amount'>dividend_amount</span> <span class='comment'># Available only if adjusted is true
+</span>  <span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_split_coefficient'>split_coefficient</span> <span class='comment'># Available only if adjusted is true
+</span></code></pre>
+
+<p>You can order the data in ascending or descending order.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>desc</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='comment'># Default
+</span>  <span class='id identifier rubyid_timeseries'>timeseries</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>asc</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</code></pre>
+<a name="Indicator"></a>
+<h2 id="label-Alphavantage-3A-3AIndicator">Alphavantage::Indicator</h2>
+
+<p>Alphavantage::Indicator is for using technical indicator. To create a new
+Indicator class you can use a Stock class or you can create it directly.
+These two creation commands are equivalent:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span> <span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SMA</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Alphavantage.html" title="Alphavantage (module)">Alphavantage</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Alphavantage/Indicator.html" title="Alphavantage::Indicator (class)">Indicator</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Alphavantage/Indicator.html#initialize-instance_method" title="Alphavantage::Indicator#initialize (method)">new</a></span></span> <span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SMA</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>symbol:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MSFT</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>YOURKEY</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<p>Note that the initialization owns different entries (for deeper explanation
+on the parameters, please consult the Alpha Vantage documentation). Some of
+these parameters are necessary for each functions.</p>
+<ul><li>
+<p>symbol: it is a string that denote the stock you want to retrieve. This
+value cannot be setup if you are initializing a timeseries from a stock</p>
+</li><li>
+<p>key: authentication key. This value cannot be setup if you are initializing
+a timeseries from a stock</p>
+</li><li>
+<p>verbose: used to see the request to Alpha Vantage (default false). This
+value cannot be setup if you are initializing a timeseries from a stock</p>
+</li><li>
+<p>function: denote the type of function that you want to use. It can be
+“SMA”, “EMA”, “WMA”, “DEMA”, “TEMA”, “TRIMA”, “KAMA”, “T3”, “RSI”,“MAMA”,
+“MACD”, “MACDEXT”, “STOCH”, “STOCHF”, “STOCHRSI”, “WILLR”, “ADX”, “ADXR”,
+“APO”, “PPO”, “MOM”, “BOP”, “CCI”, “CMO”, “ROC”, “ROCR”, “AROON”,
+“AROONOSC”, “MFI”, “TRIX”, “ULTOSC”, “DX”, “MINUS_DI”, “PLUS_DI”,
+“MINUS_DM”, “PLUS_DM”, “BBANDS”, “MIDPOINT”, “MIDPRICE”, “SAR”, “TRANGE”,
+“ATR”, “NATR”, “AD”, “ADOSC”, “OBV”, “HT_SINE”, “HT_TRENDLINE”,
+“HT_TRENDMODE”, “HT_DCPERIOD”, “HT_DCPHASE”, or “HT_PHASOR”.</p>
+</li><li>
+<p>interval: it can be “1min”, “5min”, “15min”, “30min”, “60min”, “daily”,
+“weekly”, or “monthly” (default “daily”).</p>
+</li></ul>
+
+<p>Others are used only for some functions.</p>
+<ul><li>
+<p>time_period: it can be a positive integer (default “60”). These functions
+support this attribute: “SMA”, “EMA”, “WMA”, “DEMA”, “TEMA”, “TRIMA”,
+“KAMA”, “T3”, “RSI”, “STOCHRSI”, “WILLR”, “ADX”, “ADXR”, “MOM”, “CCI”,
+“CMO”, “ROC”, “ROCR”, “AROON”, “AROONOSC”, “MFI”, “TRIX”, “DX”, “MINUS_DI”,
+“PLUS_DI”, “MINUS_DM”, “PLUS_DM”, “BBANDS”, “MIDPOINT”, “MIDPRICE”, “ATR”,
+“NATR”</p>
+</li><li>
+<p>series_type: it can be “close”, “open”, “high”, “low” (default “close”).
+These functions support this attribute: “SMA”, “EMA”, “WMA”, “DEMA”,
+“TEMA”, “TRIMA”, “KAMA”, “T3”, “RSI”, “MAMA”, “MACD”, “MACDEXT”,
+“STOCHRSI”, “APO”, “PPO”, “MOM”, “ROC”, “ROCR”, “TRIX”, “BBANDS”,
+“MIDPOINT”, “HT_SINE”, “HT_TRENDLINE”, “HT_TRENDMODE”, “HT_DCPERIOD”,
+“HT_DCPHASE”, “HT_PHASOR”, “CMO”</p>
+</li></ul>
+
+<p>Others are even more specific for the function used. These are in general
+of three type: positive integer parameters, positive float parameters and
+MA parameters. The MA parameters accept as an entry one of these
+attributes: “0”, “1”, “2”, “3”, “4”, “5”, “6”, “7”, “8”, “SMA”, “EMA”,
+“WMA”, “DEMA”, “TEMA”, “TRIMA”, “T3”, “KAMA”, or “MAMA”.</p>
+
+<p>Each indicator has several methods that can use in relation of the type.
+Some are used for each indicator.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SMA</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_output'>output</span> <span class='comment'># Retrieve the output from Alpha vantage
+</span><span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_symbol'>symbol</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_interval'>interval</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_last_refreshed'>last_refreshed</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_time_zone'>time_zone</span>
+</code></pre>
+
+<p>Some other are more specific in relation of the type of indicator used.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_time_period'>time_period</span> <span class='comment'># time_period is only supported by &quot;SMA&quot;, &quot;EMA&quot;, &quot;WMA&quot;, &quot;DEMA&quot;, &quot;TEMA&quot;, &quot;TRIMA&quot;, &quot;KAMA&quot;, &quot;T3&quot;, &quot;RSI&quot;, &quot;STOCHRSI&quot;, &quot;WILLR&quot;, &quot;ADX&quot;, &quot;ADXR&quot;, &quot;MOM&quot;, &quot;CCI&quot;, &quot;CMO&quot;, &quot;ROC&quot;, &quot;ROCR&quot;, &quot;AROON&quot;, &quot;AROONOSC&quot;, &quot;MFI&quot;, &quot;TRIX&quot;, &quot;DX&quot;, &quot;MINUS_DI&quot;, &quot;PLUS_DI&quot;, &quot;MINUS_DM&quot;, &quot;PLUS_DM&quot;, &quot;BBANDS&quot;, &quot;MIDPOINT&quot;, &quot;MIDPRICE&quot;, &quot;ATR&quot;,&quot;NATR&quot;
+</span><span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_series_type'>series_type</span> <span class='comment'># series_type is only supported by &quot;SMA&quot;, &quot;EMA&quot;, &quot;WMA&quot;, &quot;DEMA&quot;, &quot;TEMA&quot;, &quot;TRIMA&quot;, &quot;KAMA&quot;, &quot;T3&quot;, &quot;RSI&quot;, &quot;MAMA&quot;, &quot;MACD&quot;, &quot;MACDEXT&quot;, &quot;STOCHRSI&quot;, &quot;APO&quot;, &quot;PPO&quot;, &quot;MOM&quot;, &quot;ROC&quot;,&quot;ROCR&quot;, &quot;TRIX&quot;, &quot;BBANDS&quot;, &quot;MIDPOINT&quot;, &quot;HT_SINE&quot;, &quot;HT_TRENDLINE&quot;,  &quot;HT_TRENDMODE&quot;, &quot;HT_DCPERIOD&quot;, &quot;HT_DCPHASE&quot;, &quot;HT_PHASOR&quot;, &quot;CMO&quot;
+</span></code></pre>
+
+<p>Then there are really specific indicator, for only some functions.</p>
+
+<h3 id="label-SMA">SMA</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SMA</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_sma'>sma</span>
+</code></pre>
+
+<h3 id="label-EMA">EMA</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>EMA</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_ema'>ema</span>
+</code></pre>
+
+<h3 id="label-WMA">WMA</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WMA</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_wma'>wma</span>
+</code></pre>
+
+<h3 id="label-DEMA">DEMA</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEMA</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_dema'>dema</span>
+</code></pre>
+
+<h3 id="label-TEMA">TEMA</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>TEMA</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_tema'>tema</span>
+</code></pre>
+
+<h3 id="label-TRIMA">TRIMA</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>TRIMA</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_trima'>trima</span>
+</code></pre>
+
+<h3 id="label-KAMA">KAMA</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>KAMA</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_kama'>kama</span>
+</code></pre>
+
+<h3 id="label-MAMA">MAMA</h3>
+<ul><li>
+<p>fastlimit: it can be a positive float (default “0.01”)</p>
+</li><li>
+<p>slowlimit: it can be a positive float (default “0.01”)</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MAMA</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>fastlimit:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.02</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>slowlimit:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.01</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fast_limit'>fast_limit</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_slow_limit'>slow_limit</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fama'>fama</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_mama'>mama</span>
+</code></pre>
+
+<h3 id="label-T3">T3</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>T3</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_t3'>t3</span>
+</code></pre>
+
+<h3 id="label-MACD">MACD</h3>
+<ul><li>
+<p>fastperiod: it can be a positive integer (default “12”)</p>
+</li><li>
+<p>slowperiod: it can be a positive integer (default “26”)</p>
+</li><li>
+<p>signalperiod: it can be a positive integer (default “9”)</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MACD</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>  <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>fastperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>12</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>slowperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>26</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>signalperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>9</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fast_period'>fast_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_slow_period'>slow_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_signal_period'>signal_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_macd_signal'>macd_signal</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_macd_hist'>macd_hist</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_macd'>macd</span>
+</code></pre>
+
+<h3 id="label-MACDEXT">MACDEXT</h3>
+<ul><li>
+<p>fastperiod: it can be a positive integer (default “12”)</p>
+</li><li>
+<p>slowperiod: it can be a positive integer (default “26”)</p>
+</li><li>
+<p>signalperiod: it can be a positive integer (default “9”)</p>
+</li><li>
+<p>fastmatype: it is a MA parameter (default “0”)</p>
+</li><li>
+<p>slowmatype: it is a MA parameter (default “0”)</p>
+</li><li>
+<p>signalmatype: it is a MA parameter (default “0”)</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MACDEXT</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>  <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>fastperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>12</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>slowperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>26</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>signalperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>9</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>fastmatype:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>slowmatype:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>signalmatype:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fast_period'>fast_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_slow_period'>slow_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_signal_period'>signal_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_signal_ma_type'>signal_ma_type</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fast_ma_type'>fast_ma_type</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_slow_ma_type'>slow_ma_type</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_macd_signal'>macd_signal</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_macd_hist'>macd_hist</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_macd'>macd</span>
+</code></pre>
+
+<h3 id="label-STOCH">STOCH</h3>
+<ul><li>
+<p>fastkperiod: it can be a positive integer (default “5”)</p>
+</li><li>
+<p>slowkperiod: it can be a positive integer (default “3”)</p>
+</li><li>
+<p>slowdperiod: it can be a positive integer (default “3”)</p>
+</li><li>
+<p>slowkmatype: it is a MA parameter (default “0”)</p>
+</li><li>
+<p>slowdmatype: it is a MA parameter (default “0”)</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>STOCH</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>fastkperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>5</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>slowkperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>3</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>slowdperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>3</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>slowkmatype:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>slowdmatype:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fastk_period'>fastk_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_slowk_period'>slowk_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_slowk_ma_type'>slowk_ma_type</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_slowd_period'>slowd_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_slowd_ma_type'>slowd_ma_type</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_slowk'>slowk</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_slowd'>slowd</span>
+</code></pre>
+
+<h3 id="label-STOCHF">STOCHF</h3>
+<ul><li>
+<p>fastkperiod: it can be a positive integer (default “5”)</p>
+</li><li>
+<p>fastdperiod: it can be a positive integer (default “3”)</p>
+</li><li>
+<p>fastdmatype: it is a MA parameter (default “0”)</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>STOCHF</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>fastkperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>5</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>fastdperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>3</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>fastdmatype:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fastk_period'>fastk_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fastd_period'>fastd_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fastd_ma_type'>fastd_ma_type</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fastk'>fastk</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fastd'>fastd</span>
+</code></pre>
+
+<h3 id="label-RSI">RSI</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RSI</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_rsi'>rsi</span>
+</code></pre>
+
+<h3 id="label-STOCHRSI">STOCHRSI</h3>
+<ul><li>
+<p>fastkperiod: it can be a positive integer (default “5”)</p>
+</li><li>
+<p>fastdperiod: it can be a positive integer (default “3”)</p>
+</li><li>
+<p>fastdmatype: it is a MA parameter (default “0”)</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>STOCHRSI</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>fastkperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>5</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>fastdperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>3</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>fastdmatype:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fastk_period'>fastk_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fastd_period'>fastd_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fastd_ma_type'>fastd_ma_type</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fastk'>fastk</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fastd'>fastd</span>
+</code></pre>
+
+<h3 id="label-WILLR">WILLR</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WILLR</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_willr'>willr</span>
+</code></pre>
+
+<h3 id="label-ADX">ADX</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ADX</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_adx'>adx</span>
+</code></pre>
+
+<h3 id="label-ADXR">ADXR</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ADXR</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_adxr'>adxr</span>
+</code></pre>
+
+<h3 id="label-APO">APO</h3>
+<ul><li>
+<p>fastperiod: it can be a positive integer (default “12”)</p>
+</li><li>
+<p>slowperiod: it can be a positive integer (default “26”)</p>
+</li><li>
+<p>signalperiod: it can be a positive integer (default “9”)</p>
+</li><li>
+<p>matype: it is a MA parameter (default “0”)</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>APO</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>fastperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>12</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>slowperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>26</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>signalperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>9</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>matype:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fast_period'>fast_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_slow_period'>slow_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_ma_type'>ma_type</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_apo'>apo</span>
+</code></pre>
+
+<h3 id="label-PPO">PPO</h3>
+<ul><li>
+<p>fastperiod: it can be a positive integer (default “12”)</p>
+</li><li>
+<p>slowperiod: it can be a positive integer (default “26”)</p>
+</li><li>
+<p>signalperiod: it can be a positive integer (default “9”)</p>
+</li><li>
+<p>matype: it is a MA parameter (default “0”)</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>PPO</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>fastperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>12</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>slowperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>26</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>signalperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>9</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>matype:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fast_period'>fast_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_slow_period'>slow_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_ma_type'>ma_type</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_ppo'>ppo</span>
+</code></pre>
+
+<h3 id="label-MOM">MOM</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MOM</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_mom'>mom</span>
+</code></pre>
+
+<h3 id="label-BOP">BOP</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MOM</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_bop'>bop</span>
+</code></pre>
+
+<h3 id="label-CCI">CCI</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>CCI</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_cci'>cci</span>
+</code></pre>
+
+<h3 id="label-CMO">CMO</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>CMO</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_cmo'>cmo</span>
+</code></pre>
+
+<h3 id="label-ROC">ROC</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ROC</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_roc'>roc</span>
+</code></pre>
+
+<h3 id="label-ROCR">ROCR</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ROCR</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_rocr'>rocr</span>
+</code></pre>
+
+<h3 id="label-AROON">AROON</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AROON</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_aroon_down'>aroon_down</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_aroon_up'>aroon_up</span>
+</code></pre>
+
+<h3 id="label-AROONOSC">AROONOSC</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AROONOSC</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_aroonosc'>aroonosc</span>
+</code></pre>
+
+<h3 id="label-MFI">MFI</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MFI</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_mfi'>mfi</span>
+</code></pre>
+
+<h3 id="label-TRIX">TRIX</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>TRIX</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_trix'>trix</span>
+</code></pre>
+
+<h3 id="label-ULTOSC">ULTOSC</h3>
+<ul><li>
+<p>timeperiod1: it can be a positive integer (default “7”)</p>
+</li><li>
+<p>timeperiod2: it can be a positive integer (default “14”)</p>
+</li><li>
+<p>timeperiod3: it can be a positive integer (default “28”)</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ULTOSC</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>timeperiod1:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>7</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>timeperiod2:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>14</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>  <span class='label'>timeperiod3:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>28</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_time_period_1'>time_period_1</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_time_period_2'>time_period_2</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_time_period_3'>time_period_3</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_ultosc'>ultosc</span>
+</code></pre>
+
+<h3 id="label-DX">DX</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DX</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_dx'>dx</span>
+</code></pre>
+
+<h3 id="label-MINUS_DI">MINUS_DI</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MINUS_DI</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_minus_di'>minus_di</span>
+</code></pre>
+
+<h3 id="label-PLUS_DI">PLUS_DI</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>PLUS_DI</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_plus_di'>plus_di</span>
+</code></pre>
+
+<h3 id="label-MINUS_DM">MINUS_DM</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>PLUS_DI</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_minus_dm'>minus_dm</span>
+</code></pre>
+
+<h3 id="label-PLUS_DM">PLUS_DM</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>PLUS_DM</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_plus_dm'>plus_dm</span>
+</code></pre>
+
+<h3 id="label-BBANDS">BBANDS</h3>
+<ul><li>
+<p>matype: it is a MA parameter (default “0”)</p>
+</li><li>
+<p>nbdevup: it can be a positive integer (default “2”)</p>
+</li><li>
+<p>nbdevdn: it can be a positive integer (default “2”)</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>BBANDS</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>matype:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>nbdevup:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>nbdevdn:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_deviation_multiplier_for_upper_band'>deviation_multiplier_for_upper_band</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_deviation_multiplier_for_lower_band'>deviation_multiplier_for_lower_band</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_ma_type'>ma_type</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_real_lower_band'>real_lower_band</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_real_middle_band'>real_middle_band</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_real_upper_band'>real_upper_band</span>
+</code></pre>
+
+<h3 id="label-MIDPOINT">MIDPOINT</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MIDPOINT</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_midpoint'>midpoint</span>
+</code></pre>
+
+<h3 id="label-MIDPRICE">MIDPRICE</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>MIDPRICE</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_midprice'>midprice</span>
+</code></pre>
+
+<h3 id="label-SAR">SAR</h3>
+<ul><li>
+<p>acceleration: it can be a positive float (default “0.01”)</p>
+</li><li>
+<p>maximum: it can be a positive float (default “0.20”)</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SAR</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>acceleration:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.01</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>maximum:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.20</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_acceleration'>acceleration</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_maximum'>maximum</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_sar'>sar</span>
+</code></pre>
+
+<h3 id="label-TRANGE">TRANGE</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>TRANGE</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_trange'>trange</span>
+</code></pre>
+
+<h3 id="label-ATR">ATR</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ATR</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_atr'>atr</span>
+</code></pre>
+
+<h3 id="label-NATR">NATR</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>NATR</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_natr'>natr</span>
+</code></pre>
+
+<h3 id="label-AD">AD</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AD</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_chaikin_ad'>chaikin_ad</span>
+</code></pre>
+
+<h3 id="label-ADOSC">ADOSC</h3>
+<ul><li>
+<p>fastperiod: it can be a positive integer (default “12”)</p>
+</li><li>
+<p>slowperiod: it can be a positive integer (default “26”)</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ADOSC</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>fastperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>12</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>slowperiod:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>26</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_fastk_period'>fastk_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_slowk_period'>slowk_period</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_adosc'>adosc</span>
+</code></pre>
+
+<h3 id="label-OBV">OBV</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>OBV</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_obv'>obv</span>
+</code></pre>
+
+<h3 id="label-HT_TRENDLINE">HT_TRENDLINE</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HT_TRENDLINE</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>time_period:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>60</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_ht_trendline'>ht_trendline</span>
+</code></pre>
+
+<h3 id="label-HT_SINE">HT_SINE</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HT_SINE</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_sine'>sine</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_lead_sine'>lead_sine</span>
+</code></pre>
+
+<h3 id="label-HT_TRENDMODE">HT_TRENDMODE</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HT_TRENDMODE</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_trendmode'>trendmode</span>
+</code></pre>
+
+<h3 id="label-HT_DCPERIOD">HT_DCPERIOD</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HT_DCPERIOD</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_dcperiod'>dcperiod</span>
+</code></pre>
+
+<h3 id="label-HT_DCPHASE">HT_DCPHASE</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>EMA</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_ht_dcphase'>ht_dcphase</span>
+</code></pre>
+
+<h3 id="label-HT_PHASOR">HT_PHASOR</h3>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_indicator'>indicator</span> <span class='op'>=</span> <span class='id identifier rubyid_stock'>stock</span><span class='period'>.</span><span class='id identifier rubyid_indicator'>indicator</span><span class='lparen'>(</span><span class='label'>function:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HT_PHASOR</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>interval:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>weekly</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>series_type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>close</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_quadrature'>quadrature</span>
+<span class='id identifier rubyid_indicator'>indicator</span><span class='period'>.</span><span class='id identifier rubyid_phase'>phase</span>
+</code></pre>
+<a name="Crypto"></a>
+<h2 id="label-Alphavantage-3A-3ACrypto">Alphavantage::Crypto</h2>
+
+<p>Alphavantage::Crypto is used to create a Crypto class to manage future
+retrieving of timeseries of Cryptocurrency.</p>
+
+<p>To create a new Crypto class you can use a client or you can create it
+directly. These two creation commands are equivalent:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_crypto'>crypto</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_crypto'>crypto</span> <span class='label'>symbol:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>BTC</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>market:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DKK</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_crypto'>crypto</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Alphavantage.html" title="Alphavantage (module)">Alphavantage</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Alphavantage/Crypto.html" title="Alphavantage::Crypto (class)">Crypto</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Alphavantage/Crypto.html#initialize-instance_method" title="Alphavantage::Crypto#initialize (method)">new</a></span></span> <span class='label'>symbol:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>BTC</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>market:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DKK</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>YOURKEY</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<p>Note that the initialization owns different entry:</p>
+<ul><li>
+<p>symbol: it is a string that denote the cryptocurrency you want to retrieve.</p>
+</li><li>
+<p>market: denote the market where you want to analyze the cryptocurrency</p>
+</li><li>
+<p>key: authentication key. This value cannot be setup if you are initializing
+a Stock class from a client</p>
+</li><li>
+<p>verbose: used to see the request to Alpha Vantage (default false). This
+value cannot be setup if you are initializing a timeseries from a stock</p>
+</li><li>
+<p>datatype: it can be “json” or “csv” (default “json”)</p>
+</li></ul>
+
+<p>You can setup the datatype of future retrieving by doing:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_crypto'>crypto</span><span class='period'>.</span><span class='id identifier rubyid_datatype'>datatype</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>csv</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+<a name="Crypto_Timeseries"></a>
+<h2 id="label-Alphavantage-3A-3ACrypto_Timeseries">Alphavantage::Crypto_Timeseries</h2>
+
+<p>Alphavantage::Crypto_Timeseries is used to retrieve historical data of a
+cryptocurrency. To create a new Crypto_Timeseries class you can use a
+Crypto class or you can create it directly. These two creation commands are
+equivalent:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span> <span class='op'>=</span> <span class='id identifier rubyid_crypto'>crypto</span><span class='period'>.</span><span class='id identifier rubyid_timeseries'>timeseries</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>daily</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Alphavantage.html" title="Alphavantage (module)">Alphavantage</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Alphavantage/Crypto_Timeseries.html" title="Alphavantage::Crypto_Timeseries (class)">Crypto_Timeseries</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Alphavantage/Crypto_Timeseries.html#initialize-instance_method" title="Alphavantage::Crypto_Timeseries#initialize (method)">new</a></span></span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>daily</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>symbol:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>BTC</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>market:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DKK</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>YOURKEY</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<p>Note that the initialization owns different entries:</p>
+<ul><li>
+<p>symbol: it is a string that denote the stock you want to retrieve. This
+value cannot be setup if you are initializing a timeseries from a crypto
+class from a crypto class</p>
+</li><li>
+<p>market: it is a string that denote the market you want to analyse. This
+value cannot be setup if you are initializing a timeseries from a stock</p>
+</li><li>
+<p>key: authentication key. This value cannot be setup if you are initializing
+a timeseries from a crypto class</p>
+</li><li>
+<p>verbose: used to see the request to Alpha Vantage (default false). This
+value cannot be setup if you are initializing a timeseries from a stock</p>
+</li><li>
+<p>type: it can be “intraday”, “daily”, “weekly”, “monthly” (default “daily”)</p>
+</li><li>
+<p>datatype: it can be “json” or “csv” (default “json”)</p>
+</li><li>
+<p>file: path where a csv file should be saved (default “nil”)</p>
+</li></ul>
+
+<p>You can retrieve all the output from Alpha Vantage by doing.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_output'>output</span>
+</code></pre>
+
+<p>Specific information about the timeseries can be retrieved using the
+following methods:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_information'>information</span> <span class='comment'># Retrieve information about the timeseries
+</span>  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_digital_currency_code'>digital_currency_code</span> <span class='comment'># Code of the cryptocurrency
+</span>  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_digital_currency_name'>digital_currency_name</span> <span class='comment'># Name of the cryptocurrency
+</span>  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_market_code'>market_code</span> <span class='comment'># Code of the analysed market
+</span>  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_market_name'>market_name</span> <span class='comment'># Name of the analysed market
+</span>  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_last_refreshed'>last_refreshed</span> <span class='comment'># A timestamp that show when last time the data were refreshed
+</span>  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_output_size'>output_size</span> <span class='comment'># Size of the output
+</span>  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_time_zone'>time_zone</span> <span class='comment'># Time zone of the timeseries
+</span></code></pre>
+
+<p>Specific data can be retrieved using the following methods. These methods
+will return an array of couples where the first entry is a timestampand the
+second one is the value of the stock at the timestamp. These timeseries
+return always the corrispective timeseries in relation of the USD market.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span>
+  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
+  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_high'>high</span>
+  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_low'>low</span>
+  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_volume'>volume</span>
+  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_open_usd'>open_usd</span>
+  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_close_usd'>close_usd</span>
+  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_high_usd'>high_usd</span>
+  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_low_usd'>low_usd</span>
+  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_market_cap_usd'>market_cap_usd</span>
+</code></pre>
+
+<p>You can order the data in ascending or descending order.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>desc</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='comment'># Default
+</span>  <span class='id identifier rubyid_crypto_timeseries'>crypto_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>asc</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</code></pre>
+<a name="Exchange"></a>
+<h2 id="label-Alphavantage-3A-3AExchange">Alphavantage::Exchange</h2>
+
+<p>You can retrieve the exchange rate between two currencies (even
+cryptocurrency) by using this class.</p>
+
+<p>To create a new Exchange class you can use a client or you can create it
+directly. These two creation commands are equivalent:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_exchange'>exchange</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_exchange'>exchange</span> <span class='label'>from:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>USD</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>to:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DKK</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># Check the value of a USD dollar in Danish Kr.
+</span><span class='id identifier rubyid_exchange'>exchange</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Alphavantage.html" title="Alphavantage (module)">Alphavantage</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Alphavantage/Exchange.html" title="Alphavantage::Exchange (class)">Exchange</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Alphavantage/Exchange.html#initialize-instance_method" title="Alphavantage::Exchange#initialize (method)">new</a></span></span> <span class='label'>from:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>USD</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>to:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DKK</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>YOURKEY</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<p>Note that the initialization owns different entry:</p>
+<ul><li>
+<p>from: input currency you want to check the value</p>
+</li><li>
+<p>to: output currency you want to see the value</p>
+</li><li>
+<p>symbol: it is a string that denote the stock you want to retrieve.</p>
+</li><li>
+<p>key: authentication key. This value cannot be setup if you are initializing
+a Stock class from a client</p>
+</li><li>
+<p>verbose: used to see the request to Alpha Vantage (default false). This
+value cannot be setup if you are initializing a timeseries from a stock</p>
+</li><li>
+<p>datatype: it can be “json” or “csv” (default “json”)</p>
+</li></ul>
+
+<p>You can retrieve the actual situation of the exchange from Alpha Vantage by
+doing.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_ex_now'>ex_now</span> <span class='op'>=</span> <span class='id identifier rubyid_exchange'>exchange</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span>
+</code></pre>
+
+<p>Other information can be retrieved using the following methods:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_ex_now'>ex_now</span><span class='period'>.</span><span class='id identifier rubyid_from_currency_code'>from_currency_code</span> <span class='comment'># Code of the from currency
+</span>  <span class='id identifier rubyid_ex_now'>ex_now</span><span class='period'>.</span><span class='id identifier rubyid_from_currency_name'>from_currency_name</span> <span class='comment'># Name of the from currency
+</span>  <span class='id identifier rubyid_ex_now'>ex_now</span><span class='period'>.</span><span class='id identifier rubyid_to_currency_code'>to_currency_code</span>  <span class='comment'># Code of the to currency
+</span>  <span class='id identifier rubyid_ex_now'>ex_now</span><span class='period'>.</span><span class='id identifier rubyid_to_currency_name'>to_currency_name</span> <span class='comment'># Name of the to currency
+</span>  <span class='id identifier rubyid_ex_now'>ex_now</span><span class='period'>.</span><span class='id identifier rubyid_exchange_rate'>exchange_rate</span> <span class='comment'># Exchange rate between the two currencies
+</span>  <span class='id identifier rubyid_ex_now'>ex_now</span><span class='period'>.</span><span class='id identifier rubyid_information'>information</span> <span class='comment'># Retrieve information about the timeseries
+</span>  <span class='id identifier rubyid_ex_now'>ex_now</span><span class='period'>.</span><span class='id identifier rubyid_symbol'>symbol</span> <span class='comment'># Symbol used by the timeseries
+</span>  <span class='id identifier rubyid_exchange'>exchange</span><span class='period'>.</span><span class='id identifier rubyid_last_refreshed'>last_refreshed</span> <span class='comment'># A timestamp that show when last time the data were refreshed
+</span>  <span class='id identifier rubyid_ex_now'>ex_now</span><span class='period'>.</span><span class='id identifier rubyid_output_size'>output_size</span> <span class='comment'># Size of the output
+</span>  <span class='id identifier rubyid_ex_now'>ex_now</span><span class='period'>.</span><span class='id identifier rubyid_time_zone'>time_zone</span> <span class='comment'># Time zone of the timeseries
+</span></code></pre>
+<a name="Exchange_Timeseries"></a>
+<h2 id="label-Alphavantage-3A-3AExchange_Timeseries">Alphavantage::Exchange_Timeseries</h2>
+
+<p>Alphavantage::Exchange_Timeseries is used to retrieve historical data of an
+exchange currency. To create a new Exchange_Timeseries class you can use an
+Exchange class or you can create it directly. These two creation commands
+are equivalent:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span> <span class='op'>=</span> <span class='id identifier rubyid_exchange'>exchange</span><span class='period'>.</span><span class='id identifier rubyid_timeseries'>timeseries</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>daily</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Alphavantage.html" title="Alphavantage (module)">Alphavantage</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Alphavantage/Exchange_Timeseries.html" title="Alphavantage::Exchange_Timeseries (class)">Exchange_Timeseries</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Alphavantage/Exchange_Timeseries.html#initialize-instance_method" title="Alphavantage::Exchange_Timeseries#initialize (method)">new</a></span></span> <span class='label'>from:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>USD</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>to:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DKK</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>YOURKEY</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>type:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>daily</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<p>Note that the initialization owns different entries:</p>
+<ul><li>
+<p>symbol: it is a string that denote the stock you want to retrieve. This
+value cannot be setup if you are initializing a timeseries from a stock</p>
+</li><li>
+<p>key: authentication key. This value cannot be setup if you are initializing
+a timeseries from a stock</p>
+</li><li>
+<p>verbose: used to see the request to Alpha Vantage (default false). This
+value cannot be setup if you are initializing a timeseries from a stock</p>
+</li><li>
+<p>type: it can be “intraday”, “daily”, “weekly”, “monthly” (default “daily”)</p>
+</li><li>
+<p>adjusted: a boolean value, it returns adjusted values (default false)</p>
+</li><li>
+<p>interval: it can be “1min”, “5min”, “15min”, “30min”, or “60min”. It is
+used  only if type is “intraday” (default nil)</p>
+</li><li>
+<p>outputsize: it can be “compact”, or “full” (default “compact”)</p>
+</li><li>
+<p>datatype: it can be “json” or “csv” (default “json”)</p>
+</li><li>
+<p>file: path where a csv file should be saved (default “nil”)</p>
+</li></ul>
+
+<p>You can retrieve all the output from Alpha Vantage by doing.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_output'>output</span>
+</code></pre>
+
+<p>Specific information about the timeseries can be retrieved using the
+following methods:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_information'>information</span> <span class='comment'># Retrieve information about the timeseries
+</span>  <span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_from_symbol'>from_symbol</span> <span class='comment'># Code of the from symbol
+</span>  <span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_to_symbol'>to_symbol</span> <span class='comment'># Code of the to symbol
+</span>  <span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_last_refreshed'>last_refreshed</span> <span class='comment'># A timestamp that show when last time the data were refreshed
+</span>  <span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_output_size'>output_size</span> <span class='comment'># Size of the output
+</span>  <span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_time_zone'>time_zone</span> <span class='comment'># Time zone of the timeseries
+</span></code></pre>
+
+<p>Specific data can be retrieved using the following methods. These methods
+will return an array of couples where the first entry is a timestampand the
+second one is the value of the stock at the timestamp. These timeseries
+return always the corrispective timeseries in relation of the USD market.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span>
+  <span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_close'>close</span>
+  <span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_high'>high</span>
+  <span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_low'>low</span>
+</code></pre>
+
+<p>You can order the data in ascending or descending order.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>desc</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='comment'># Default
+</span>  <span class='id identifier rubyid_exchange_timeseries'>exchange_timeseries</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>asc</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</code></pre>
+<a name="Sector"></a>
+<h2 id="label-Alphavantage-3A-3ASector">Alphavantage::Sector</h2>
+
+<p>This class returns the realtime and historical sector performances
+calculated from S&amp;P500 incumbents.</p>
+
+<p>To create a new Sector class you can use a client or you can create it
+directly. These two creation commands are equivalent:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_sector'>sector</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_sector'>sector</span>
+<span class='id identifier rubyid_sector'>sector</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Alphavantage.html" title="Alphavantage (module)">Alphavantage</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Alphavantage/Sector.html" title="Alphavantage::Sector (class)">Sector</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Alphavantage/Sector.html#initialize-instance_method" title="Alphavantage::Sector#initialize (method)">new</a></span></span> <span class='label'>key:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>YOURKEY</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<p>Note that the initialization owns different entries:</p>
+<ul><li>
+<p>key: authentication key. This value cannot be setup if you are initializing
+a timeseries from a crypto class</p>
+</li></ul>
+
+<p>You can retrieve all the output from Alpha Vantage by doing.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_sector'>sector</span><span class='period'>.</span><span class='id identifier rubyid_output'>output</span>
+</code></pre>
+
+<p>Specific information about the timeseries can be retrieved using the
+following methods:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_sector'>sector</span><span class='period'>.</span><span class='id identifier rubyid_information'>information</span>
+  <span class='id identifier rubyid_sector'>sector</span><span class='period'>.</span><span class='id identifier rubyid_last_refreshed'>last_refreshed</span>
+  <span class='id identifier rubyid_sector'>sector</span><span class='period'>.</span><span class='id identifier rubyid_real_time_performance'>real_time_performance</span>
+  <span class='id identifier rubyid_sector'>sector</span><span class='period'>.</span><span class='id identifier rubyid_one_day_performance'>one_day_performance</span>
+  <span class='id identifier rubyid_sector'>sector</span><span class='period'>.</span><span class='id identifier rubyid_five_day_performance'>five_day_performance</span>
+  <span class='id identifier rubyid_sector'>sector</span><span class='period'>.</span><span class='id identifier rubyid_one_month_performance'>one_month_performance</span>
+  <span class='id identifier rubyid_sector'>sector</span><span class='period'>.</span><span class='id identifier rubyid_three_month_performance'>three_month_performance</span>
+  <span class='id identifier rubyid_sector'>sector</span><span class='period'>.</span><span class='id identifier rubyid_year_to_date_performance'>year_to_date_performance</span>
+  <span class='id identifier rubyid_sector'>sector</span><span class='period'>.</span><span class='id identifier rubyid_one_year_performance'>one_year_performance</span>
+  <span class='id identifier rubyid_sector'>sector</span><span class='period'>.</span><span class='id identifier rubyid_three_year_performance'>three_year_performance</span>
+  <span class='id identifier rubyid_sector'>sector</span><span class='period'>.</span><span class='id identifier rubyid_five_year_performance'>five_year_performance</span>
+  <span class='id identifier rubyid_sector'>sector</span><span class='period'>.</span><span class='id identifier rubyid_ten_year_performance'>ten_year_performance</span>
+</code></pre>
+<a name="Error"></a>
+<h2 id="label-Alphavantage-3A-3AError">Alphavantage::Error</h2>
+
+<p>Errors are handled by this class. You receive errors in the following
+cases:</p>
+<ul><li>
+<p>“Failed request”: a request to Alpha Vantage fails</p>
+</li><li>
+<p>“Parsing failed”: the parsing of the JSON from Alpha Vantage fails</p>
+</li><li>
+<p>A generic message from Alpha Vantage (for example by using a wrong key, a
+wrong query or too many requests at once). This message is equal as the one
+returned from Alpha Vantage API</p>
+</li><li>
+<p>“Failed to save the CSV file”: saving the CSV file failed</p>
+</li><li>
+<p>“No file specified where to save the CSV data”: you didn&#39;t specify a
+file to save your CSV data</p>
+</li><li>
+<p>“Hash error: No file necessary”: you specify a file to do a JSON request</p>
+</li><li>
+<p>“No Time Series found”: no timeseries has been retrieved from Alpha Vantage</p>
+</li><li>
+<p>“[method] is undefined for [class]”: you try to use a method not existing
+for the chosen class</p>
+</li><li>
+<p>“Only [list] are supported for [attribute]”: the attribute you are using
+for your request is not valid</p>
+</li><li>
+<p>“Error: [value] is not a correct positive [integer/float]”: you are not
+insering a positive integer or float (a value bigger and different than
+zero)</p>
+</li><li>
+<p>“Key should be a string”: you are trying to use a wrong key</p>
+</li></ul>
+
+<p>You can retrieve more information from your error by using:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+  <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span> <span class='comment'># Data retrieved from Alpha vantage or further information to correct the error
+</span></code></pre>
+</div></div>
+
+      <div id="footer">
+  Generated on Thu Oct 11 22:00:44 2018 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.16 (ruby-2.3.3).
+</div>
+
+    </div>
+  </body>
+</html>

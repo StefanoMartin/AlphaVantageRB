@@ -15,6 +15,7 @@ To use it in your application: `require "alphavantagerb"`
 ## How to test
 
 To test the Gem create a config.yml file inside the folder /spec with inside a line
+
 ``` ruby
 key: [YOUR KEY]
 ```
@@ -46,6 +47,7 @@ Alphavantage::Client is used to create a client that will be used from the Alpha
 To contact Alpha Vantage you need to use a valid key that you can require from [here](https://www.alphavantage.co/support/#api-key).
 
 To setup your credentials use:
+
 ``` ruby
 client = Alphavantage::Client.new key: "YOURKEY"
 ```
@@ -58,12 +60,14 @@ setup verbose equal to true.
 ```
 
 You can use the method search to find some stocks by name.
+
 ``` ruby
   stocks_found = client.search keywords: "MSFT"
   stocks_found.output # Return the hash retrieved
 ```
 
 This will return an array where each elements has the following structure:
+
 ``` ruby
   stocks_found.stocks[0].symbol
   stocks_found.stocks[0].name
@@ -96,6 +100,7 @@ stock = Alphavantage::Stock.new symbol: "MSFT", key: "YOURKEY"
 ```
 
 Note that the initialization owns different entry:
+
 * symbol: it is a string that denote the stock you want to retrieve.
 * key: authentication key. This value cannot be setup if you are initializing a Stock class from a client
 * verbose: used to see the request to Alpha Vantage (default false). This value cannot be setup if you are initializing a timeseries from a stock
@@ -105,6 +110,28 @@ You can setup the datatype of future retrieving by doing:
 
 ``` ruby
   stock.datatype = "csv"
+```
+
+You can retrieve an Openstruct document of the actual status of the stock by using:
+
+``` ruby
+  stock_quote = stock.quote
+```
+
+This include different method with several information:
+
+``` ruby
+stock_quote.output # Output of the request
+stock_quote.symbol
+stock_quote.open
+stock_quote.high
+stock_quote.low
+stock_quote.price
+stock_quote.volume
+stock_quote.latest_trading_day
+stock_quote.previous_close
+stock_quote.change
+stock_quote.change_percent
 ```
 
 <a name="Timeseries"></a>
@@ -120,6 +147,7 @@ timeseries = Alphavantage::Timeseries.new symbol: "MSFT", key: "YOURKEY"
 ```
 
 Note that the initialization owns different entries:
+
 * symbol: it is a string that denote the stock you want to retrieve. This value cannot be setup if you are initializing a timeseries from a stock
 * key: authentication key.  This value cannot be setup if you are initializing a timeseries from a stock
 * verbose: used to see the request to Alpha Vantage (default false). This value cannot be setup if you are initializing a timeseries from a stock
@@ -132,6 +160,7 @@ Note that the initialization owns different entries:
 * file: path where a csv file should be saved (default "nil")
 
 You can retrieve all the output from Alpha Vantage by doing.
+
 ``` ruby
   timeseries.output
 ```
@@ -182,6 +211,7 @@ indicator = Alphavantage::Indicator.new function: "SMA", symbol: "MSFT", key: "Y
 
 Note that the initialization owns different entries (for deeper explanation on the parameters, please consult the Alpha Vantage documentation).
 Some of these parameters are necessary for each functions.
+
 * symbol: it is a string that denote the stock you want to retrieve. This value cannot be setup if you are initializing a timeseries from a stock
 * key: authentication key.  This value cannot be setup if you are initializing a timeseries from a stock
 * verbose: used to see the request to Alpha Vantage (default false). This value cannot be setup if you are initializing a timeseries from a stock
@@ -198,6 +228,7 @@ positive integer parameters, positive float parameters and MA parameters.
 The MA parameters accept as an entry one of these attributes: "0", "1", "2", "3", "4", "5", "6", "7", "8", "SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "T3", "KAMA", or "MAMA".
 
 Each indicator has several methods that can use in relation of the type. Some are used for each indicator.
+
 ``` ruby
 indicator = stock.indicator(function: "SMA", interval: "weekly", time_period: "60", series_type: "close")
 indicator.output # Retrieve the output from Alpha vantage
@@ -209,55 +240,65 @@ indicator.time_zone
 ```
 
 Some other are more specific in relation of the type of indicator used.
+
 ``` ruby
 indicator.time_period # time_period is only supported by "SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "KAMA", "T3", "RSI", "STOCHRSI", "WILLR", "ADX", "ADXR", "MOM", "CCI", "CMO", "ROC", "ROCR", "AROON", "AROONOSC", "MFI", "TRIX", "DX", "MINUS_DI", "PLUS_DI", "MINUS_DM", "PLUS_DM", "BBANDS", "MIDPOINT", "MIDPRICE", "ATR","NATR"
 indicator.series_type # series_type is only supported by "SMA", "EMA", "WMA", "DEMA", "TEMA", "TRIMA", "KAMA", "T3", "RSI", "MAMA", "MACD", "MACDEXT", "STOCHRSI", "APO", "PPO", "MOM", "ROC","ROCR", "TRIX", "BBANDS", "MIDPOINT", "HT_SINE", "HT_TRENDLINE",  "HT_TRENDMODE", "HT_DCPERIOD", "HT_DCPHASE", "HT_PHASOR", "CMO"
 ```
+
 Then there are really specific indicator, for only some functions.
 
 ### SMA
+
 ``` ruby
 indicator = stock.indicator(function: "SMA", interval: "weekly", time_period: "60", series_type: "close")
 indicator.sma
 ```
 
 ### EMA
+
 ``` ruby
 indicator = stock.indicator(function: "EMA", interval: "weekly", time_period: "60", series_type: "close")
 indicator.ema
 ```
 
 ### WMA
+
 ``` ruby
 indicator = stock.indicator(function: "WMA", interval: "weekly", time_period: "60", series_type: "close")
 indicator.wma
 ```
 
 ### DEMA
+
 ``` ruby
 indicator = stock.indicator(function: "DEMA", interval: "weekly", time_period: "60", series_type: "close")
 indicator.dema
 ```
 
 ### TEMA
+
 ``` ruby
 indicator = stock.indicator(function: "TEMA", interval: "weekly", time_period: "60", series_type: "close")
 indicator.tema
 ```
 
 ### TRIMA
+
 ``` ruby
 indicator = stock.indicator(function: "TRIMA", interval: "weekly", time_period: "60", series_type: "close")
 indicator.trima
 ```
 
 ### KAMA
+
 ``` ruby
 indicator = stock.indicator(function: "KAMA", interval: "weekly", time_period: "60", series_type: "close")
 indicator.kama
 ```
 
 ### MAMA
+
 * fastlimit:  it can be a positive float (default "0.01")
 * slowlimit: it can be a positive float (default "0.01")
 
@@ -270,12 +311,14 @@ indicator.mama
 ```
 
 ### T3
+
 ``` ruby
 indicator = stock.indicator(function: "T3", interval: "weekly", time_period: "60", series_type: "close")
 indicator.t3
 ```
 
 ### MACD
+
 * fastperiod:  it can be a positive integer (default "12")
 * slowperiod: it can be a positive integer (default "26")
 * signalperiod: it can be a positive integer (default "9")
@@ -291,6 +334,7 @@ indicator.macd
 ```
 
 ### MACDEXT
+
 * fastperiod:  it can be a positive integer (default "12")
 * slowperiod: it can be a positive integer (default "26")
 * signalperiod: it can be a positive integer (default "9")
@@ -312,6 +356,7 @@ indicator.macd
 ```
 
 ### STOCH
+
 * fastkperiod: it can be a positive integer (default "5")
 * slowkperiod: it can be a positive integer (default "3")
 * slowdperiod: it can be a positive integer (default "3")
@@ -330,6 +375,7 @@ indicator.slowd
 ```
 
 ### STOCHF
+
 * fastkperiod: it can be a positive integer (default "5")
 * fastdperiod: it can be a positive integer (default "3")
 * fastdmatype: it is a MA parameter (default "0")
@@ -344,12 +390,14 @@ indicator.fastd
 ```
 
 ### RSI
+
 ``` ruby
 indicator = stock.indicator(function: "RSI", interval: "weekly", time_period: "60", series_type: "close")
 indicator.rsi
 ```
 
 ### STOCHRSI
+
 * fastkperiod: it can be a positive integer (default "5")
 * fastdperiod: it can be a positive integer (default "3")
 * fastdmatype: it is a MA parameter (default "0")
@@ -364,24 +412,28 @@ indicator.fastd
 ```
 
 ### WILLR
+
 ``` ruby
 indicator = stock.indicator(function: "WILLR", interval: "weekly", time_period: "60")
 indicator.willr
 ```
 
 ### ADX
+
 ``` ruby
 indicator = stock.indicator(function: "ADX", interval: "weekly", time_period: "60")
 indicator.adx
 ```
 
 ### ADXR
+
 ``` ruby
 indicator = stock.indicator(function: "ADXR", interval: "weekly", time_period: "60")
 indicator.adxr
 ```
 
 ### APO
+
 * fastperiod:  it can be a positive integer (default "12")
 * slowperiod: it can be a positive integer (default "26")
 * signalperiod: it can be a positive integer (default "9")
@@ -396,6 +448,7 @@ indicator.apo
 ```
 
 ### PPO
+
 * fastperiod:  it can be a positive integer (default "12")
 * slowperiod: it can be a positive integer (default "26")
 * signalperiod: it can be a positive integer (default "9")
@@ -410,42 +463,49 @@ indicator.ppo
 ```
 
 ### MOM
+
 ``` ruby
 indicator = stock.indicator(function: "MOM", interval: "weekly", time_period: "60", series_type: "close")
 indicator.mom
 ```
 
 ### BOP
+
 ``` ruby
 indicator = stock.indicator(function: "MOM", interval: "weekly", time_period: "60", series_type: "close")
 indicator.bop
 ```
 
 ### CCI
+
 ``` ruby
 indicator = stock.indicator(function: "CCI", interval: "weekly", time_period: "60")
 indicator.cci
 ```
 
 ### CMO
+
 ``` ruby
 indicator = stock.indicator(function: "CMO", interval: "weekly", time_period: "60")
 indicator.cmo
 ```
 
 ### ROC
+
 ``` ruby
 indicator = stock.indicator(function: "ROC", interval: "weekly", time_period: "60", series_type: "close")
 indicator.roc
 ```
 
 ### ROCR
+
 ``` ruby
 indicator = stock.indicator(function: "ROCR", interval: "weekly", time_period: "60", series_type: "close")
 indicator.rocr
 ```
 
 ### AROON
+
 ``` ruby
 indicator = stock.indicator(function: "AROON", interval: "weekly", time_period: "60")
 indicator.aroon_down
@@ -453,24 +513,28 @@ indicator.aroon_up
 ```
 
 ### AROONOSC
+
 ``` ruby
 indicator = stock.indicator(function: "AROONOSC", interval: "weekly", time_period: "60")
 indicator.aroonosc
 ```
 
 ### MFI
+
 ``` ruby
 indicator = stock.indicator(function: "MFI", interval: "weekly", time_period: "60")
 indicator.mfi
 ```
 
 ### TRIX
+
 ``` ruby
 indicator = stock.indicator(function: "TRIX", interval: "weekly", time_period: "60", series_type: "close")
 indicator.trix
 ```
 
 ### ULTOSC
+
 * timeperiod1: it can be a positive integer (default "7")
 * timeperiod2: it can be a positive integer (default "14")
 * timeperiod3:  it can be a positive integer (default "28")
@@ -484,36 +548,42 @@ indicator.ultosc
 ```
 
 ### DX
+
 ``` ruby
 indicator = stock.indicator(function: "DX", interval: "weekly", time_period: "60")
 indicator.dx
 ```
 
 ### MINUS_DI
+
 ``` ruby
 indicator = stock.indicator(function: "MINUS_DI", interval: "weekly", time_period: "60")
 indicator.minus_di
 ```
 
 ### PLUS_DI
+
 ``` ruby
 indicator = stock.indicator(function: "PLUS_DI", interval: "weekly", time_period: "60")
 indicator.plus_di
 ```
 
 ### MINUS_DM
+
 ``` ruby
 indicator = stock.indicator(function: "PLUS_DI", interval: "weekly", time_period: "60")
 indicator.minus_dm
 ```
 
 ### PLUS_DM
+
 ``` ruby
 indicator = stock.indicator(function: "PLUS_DM", interval: "weekly", time_period: "60", series_type: "close")
 indicator.plus_dm
 ```
 
 ### BBANDS
+
 * matype: it is a MA parameter (default "0")
 * nbdevup: it can be a positive integer (default "2")
 * nbdevdn:  it can be a positive integer (default "2")
@@ -529,18 +599,21 @@ indicator.real_upper_band
 ```
 
 ### MIDPOINT
+
 ``` ruby
 indicator = stock.indicator(function: "MIDPOINT", interval: "weekly", time_period: "60", series_type: "close")
 indicator.midpoint
 ```
 
 ### MIDPRICE
+
 ``` ruby
 indicator = stock.indicator(function: "MIDPRICE", interval: "weekly", time_period: "60", series_type: "close")
 indicator.midprice
 ```
 
 ### SAR
+
 * acceleration: it can be a positive float (default "0.01")
 * maximum: it can be a positive float (default "0.20")
 
@@ -552,30 +625,35 @@ indicator.sar
 ```
 
 ### TRANGE
+
 ``` ruby
 indicator = stock.indicator(function: "TRANGE", interval: "weekly")
 indicator.trange
 ```
 
 ### ATR
+
 ``` ruby
 indicator = stock.indicator(function: "ATR", interval: "weekly", time_period: "60")
 indicator.atr
 ```
 
 ### NATR
+
 ``` ruby
 indicator = stock.indicator(function: "NATR", interval: "weekly", time_period: "60")
 indicator.natr
 ```
 
 ### AD
+
 ``` ruby
 indicator = stock.indicator(function: "AD", interval: "weekly")
 indicator.chaikin_ad
 ```
 
 ### ADOSC
+
 * fastperiod:  it can be a positive integer (default "12")
 * slowperiod: it can be a positive integer (default "26")
 
@@ -587,18 +665,21 @@ indicator.adosc
 ```
 
 ### OBV
+
 ``` ruby
 indicator = stock.indicator(function: "OBV", interval: "weekly")
 indicator.obv
 ```
 
 ### HT_TRENDLINE
+
 ``` ruby
 indicator = stock.indicator(function: "HT_TRENDLINE", interval: "weekly", time_period: "60", series_type: "close")
 indicator.ht_trendline
 ```
 
 ### HT_SINE
+
 ``` ruby
 indicator = stock.indicator(function: "HT_SINE", interval: "weekly", series_type: "close")
 indicator.sine
@@ -606,29 +687,34 @@ indicator.lead_sine
 ```
 
 ### HT_TRENDMODE
+
 ``` ruby
 indicator = stock.indicator(function: "HT_TRENDMODE", interval: "weekly", series_type: "close")
 indicator.trendmode
 ```
 
 ### HT_DCPERIOD
+
 ``` ruby
 indicator = stock.indicator(function: "HT_DCPERIOD", interval: "weekly", series_type: "close")
 indicator.dcperiod
 ```
 
 ### HT_DCPHASE
+
 ``` ruby
 indicator = stock.indicator(function: "EMA", interval: "weekly", series_type: "close")
 indicator.ht_dcphase
 ```
 
 ### HT_PHASOR
+
 ``` ruby
 indicator = stock.indicator(function: "HT_PHASOR", interval: "weekly", series_type: "close")
 indicator.quadrature
 indicator.phase
 ```
+
 <a name="Crypto"></a>
 ## Alphavantage::Crypto
 
@@ -644,6 +730,7 @@ crypto = Alphavantage::Crypto.new symbol: "BTC", market: "DKK", key: "YOURKEY"
 ```
 
 Note that the initialization owns different entry:
+
 * symbol: it is a string that denote the cryptocurrency you want to retrieve.
 * market: denote the market where you want to analyze the cryptocurrency
 * key: authentication key. This value cannot be setup if you are initializing a Stock class from a client
@@ -669,8 +756,9 @@ crypto_timeseries = Alphavantage::Crypto_Timeseries.new type: "daily", symbol: "
 ```
 
 Note that the initialization owns different entries:
+
 * symbol: it is a string that denote the stock you want to retrieve. This value cannot be setup if you are initializing a timeseries from a crypto class from a crypto class
-* market: it is a string that denote the market you want to analyze. This value cannot be setup if you are initializing a timeseries from a stock
+* market: it is a string that denote the market you want to analyse. This value cannot be setup if you are initializing a timeseries from a stock
 * key: authentication key.  This value cannot be setup if you are initializing a timeseries from a crypto class
 * verbose: used to see the request to Alpha Vantage (default false). This value cannot be setup if you are initializing a timeseries from a stock
 * type: it can be "intraday", "daily", "weekly", "monthly" (default "daily")
@@ -678,6 +766,7 @@ Note that the initialization owns different entries:
 * file: path where a csv file should be saved (default "nil")
 
 You can retrieve all the output from Alpha Vantage by doing.
+
 ``` ruby
   crypto_timeseries.output
 ```
@@ -718,6 +807,7 @@ You can order the data in ascending or descending order.
   crypto_timeseries.open("desc") # Default
   crypto_timeseries.open("asc")
 ```
+
 <a name="Exchange"></a>
 ## Alphavantage::Exchange
 
@@ -732,6 +822,7 @@ exchange = Alphavantage::Exchange.new from: "USD", to: "DKK", key: "YOURKEY"
 ```
 
 Note that the initialization owns different entry:
+
 * from: input currency you want to check the value
 * to: output currency you want to see the value
 * symbol: it is a string that denote the stock you want to retrieve.
@@ -740,6 +831,7 @@ Note that the initialization owns different entry:
 * datatype: it can be "json" or "csv" (default "json")  
 
 You can retrieve the actual situation of the exchange from Alpha Vantage by doing.
+
 ``` ruby
   ex_now = exchange.now
 ```
@@ -772,6 +864,7 @@ exchange_timeseries = Alphavantage::Exchange_Timeseries.new from: "USD", to: "DK
 ```
 
 Note that the initialization owns different entries:
+
 * symbol: it is a string that denote the stock you want to retrieve. This value cannot be setup if you are initializing a timeseries from a stock
 * key: authentication key.  This value cannot be setup if you are initializing a timeseries from a stock
 * verbose: used to see the request to Alpha Vantage (default false). This value cannot be setup if you are initializing a timeseries from a stock
@@ -784,6 +877,7 @@ Note that the initialization owns different entries:
 * file: path where a csv file should be saved (default "nil")
 
 You can retrieve all the output from Alpha Vantage by doing.
+
 ``` ruby
   exchange_timeseries.output
 ```
@@ -830,14 +924,17 @@ sector = Alphavantage::Sector.new key: "YOURKEY"
 ```
 
 Note that the initialization owns different entries:
+
 * key: authentication key.  This value cannot be setup if you are initializing a timeseries from a crypto class
 
 You can retrieve all the output from Alpha Vantage by doing.
+
 ``` ruby
   sector.output
 ```
 
 Specific information about the timeseries can be retrieved using the following methods:
+
 ``` ruby
   sector.information
   sector.last_refreshed
@@ -858,6 +955,7 @@ Specific information about the timeseries can be retrieved using the following m
 
 Errors are handled by this class.
 You receive errors in the following cases:
+
 * "Failed request": a request to Alpha Vantage fails
 * "Parsing failed": the parsing of the JSON from Alpha Vantage fails
 * A generic message from Alpha Vantage (for example by using a wrong key, a wrong query or too many requests at once). This message is equal as the one returned from Alpha Vantage API
@@ -871,6 +969,7 @@ You receive errors in the following cases:
 * "Key should be a string": you are trying to use a wrong key
 
 You can retrieve more information from your error by using:
+
 ``` ruby
   e.message
   e.data # Data retrieved from Alpha vantage or further information to correct the error

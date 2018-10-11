@@ -27,6 +27,24 @@ describe Alphavantage::Stock do
       expect(bool).to eq ["json", "error", "csv"]
     end
 
+    it "can retrieve quote" do
+      stock = @client.stock symbol: "MSFT"
+      stock_quote = stock.quote
+      res = []
+      res << stock_quote.output.is_a?(Hash)
+      res << stock_quote.symbol.is_a?(String)
+      res << stock_quote.open.is_a?(String)
+      res << stock_quote.high.is_a?(String)
+      res << stock_quote.low.is_a?(String)
+      res << stock_quote.price.is_a?(String)
+      res << stock_quote.volume.is_a?(String)
+      res << stock_quote.latest_trading_day.is_a?(String)
+      res << stock_quote.previous_close.is_a?(String)
+      res << stock_quote.change.is_a?(String)
+      res << stock_quote.change_percent.is_a?(String)
+      expect(res.all?{|e| e}).to eq true
+    end
+
     it "can create a new timeseries from stock" do
       stock = @client.stock symbol: "MSFT"
       timeseries = stock.timeseries
