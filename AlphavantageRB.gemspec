@@ -4,7 +4,7 @@ require "rake"
 
 Gem::Specification.new do |s|
   s.name        = "alphavantagerb"
-  s.version	    = "1.3.1"
+  s.version	    = "1.3.2"
   s.authors     = ["Stefano Martin"]
   s.email       = ["stefano.martin87@gmail.com"]
   s.homepage    = "https://github.com/StefanoMartin/AlphaVantageRB"
@@ -14,6 +14,9 @@ Gem::Specification.new do |s|
   s.platform	   = Gem::Platform::RUBY
   s.require_paths = ["lib"]
   s.files         = FileList["lib/*", "spec/**/*", "AlphavantageRB.gemspec", "Gemfile", "LICENSE.md", "README.md"].to_a
-  s.add_dependency "httparty", "0.15.6"
-  s.add_dependency "humanize", "1.7.0"
+  s.add_runtime_dependency "httparty", "~>0.15.6", ">= 0.15.6"
+  s.add_runtime_dependency "humanize", "~>1.7.0", ">= 1.7.0"
+  s.add_development_dependency "pry-byebug", '~> 0'
+  s.add_development_dependency "rspec", "~>3.5", ">=3.5"
+  s.add_development_dependency "awesome_print", "~>1.7", ">= 1.7"
 end
