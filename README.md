@@ -1,7 +1,7 @@
 AlphavantageRB [![Gem Version](https://badge.fury.io/rb/alphavantagerb.svg)](https://badge.fury.io/rb/alphavantagerb)
 =========================================================
 
-Last update: 11/10/2018
+Last update: 22/11/2018
 
 [Alpha Vantage](https://www.alphavantage.co/) is a great API for retrieving Stock
 market data in JSON or CSV format.
