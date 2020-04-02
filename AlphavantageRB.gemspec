@@ -1,6 +1,5 @@
 # lib = File.expand_path("../lib", __FILE__)
 # $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "rake"
 
 Gem::Specification.new do |s|
   s.name        = "alphavantagerb"
