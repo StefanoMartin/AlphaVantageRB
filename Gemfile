@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "httparty", ">= 0.15.6"
+gem "httparty", ">= 0.17.0"
 gem "humanize", ">= 1.7.0"
 
 group :development, :test do
