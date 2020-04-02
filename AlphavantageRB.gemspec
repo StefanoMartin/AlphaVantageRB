@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = "A ruby wrapper for Alpha Vantage's HTTP API"
   s.platform	   = Gem::Platform::RUBY
   s.require_paths = ["lib"]
-  s.files         = FileList["lib/*", "spec/**/*", "AlphavantageRB.gemspec", "Gemfile", "LICENSE.md", "README.md"].to_a
+  s.files         = ["lib/*", "spec/**/*", "AlphavantageRB.gemspec", "Gemfile", "LICENSE.md", "README.md"].map {|f| `git ls-files #{f}`.split("\n") }.to_a.flatten
   s.add_runtime_dependency "httparty", "~>0.15.6", ">= 0.15.6"
   s.add_runtime_dependency "humanize", "~>1.7.0", ">= 1.7.0"
   s.add_development_dependency "pry-byebug", '~> 0'
