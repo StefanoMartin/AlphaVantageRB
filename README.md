@@ -23,10 +23,14 @@ key: [YOUR KEY]
 Then run "rspec spec/test_all.rb".
 Since AlphaVantage does not permit more than 5 request for minutes, many of your tests will fail. I advice either having a premium account or, like me, trying each file of test from the folder "spec/lib/1.0.0".
 
-## Support 
+## Support
 
 * Without a premium account, testing is hard and I could have missed something. Any bug, suggestions and improvements are more than welcome. Please do not be shy to create issues or pull requests.
 * This is a personal project, any stars for giving your support will make a man happy.
+
+## Thanks
+
+Thank you to mruegenberg for his pull request.
 
 ## Classes
 
