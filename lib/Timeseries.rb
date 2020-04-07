@@ -35,7 +35,7 @@ module Alphavantage
 
       begin
         time_series = @output.find{|key, val| key.include?("Time Series")}[1]
-      rescue Exception => e
+      rescue StandardError => e
         raise Alphavantage::Error.new message: "No Time Series found: #{e.message}",
           data: @output
       end

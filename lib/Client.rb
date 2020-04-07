@@ -21,20 +21,20 @@ module Alphavantage
       puts "\n#{send_url}\n" if @verbose
       begin
         response = HTTParty.get(send_url)
-      rescue Exception => e
+      rescue StandardError => e
         raise Alphavantage::Error.new message: "Failed request: #{e.message}"
       end
       data = response.body
       begin
         data = JSON.parse(data)
-      rescue Exception => e
+      rescue StandardError => e
         raise Alphavantage::Error.new message: "Parsing failed",
           data: data
       end
-      if !data["Error Message"].nil?
-        raise Alphavantage::Error.new message:  data["Error Message"], data: data
-      elsif !data["Information"].nil?
-        raise Alphavantage::Error.new message: data["Information"], data: data
+
+      error = data["Error Message"] || data["Information"] || data["Note"]
+      unless error.nil?
+        raise Alphavantage::Error.new message: error, data: data
       end
       return data
     end
@@ -45,7 +45,7 @@ module Alphavantage
         puts send_url if @verbose
         uri = URI.parse(send_url)
         uri.open{|csv| IO.copy_stream(csv, file)}
-      rescue Exception => e
+      rescue StandardError => e
         raise Alphavantage::Error.new message: "Failed to save the CSV file: #{e.message}"
       end
       return "CSV saved in #{file}"
