@@ -26,15 +26,15 @@ module Alphavantage
       return @client.download(url, file) if datatype == "csv"
       @output = @client.request(url)
       metadata = @output.dig("Meta Data") || {}
-      metadata.each do |key, val|
-        key_sym = recreate_metadata_key(key)
+      metadata.each do |k, val|
+        key_sym = recreate_metadata_key(k)
         define_singleton_method(key_sym) do
           return val
         end
       end
 
       begin
-        time_series = @output.find{|key, val| key.include?("Time Series")}[1]
+        time_series = @output.find{|k, val| k.include?("Time Series")}[1]
       rescue StandardError => e
         raise Alphavantage::Error.new message: "No Time Series found: #{e.message}",
           data: @output
@@ -42,14 +42,14 @@ module Alphavantage
 
       series = {}
       convert_key = {}
-      time_series.values[0].keys.each do |key|
-        key_sym = key.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_").to_sym
+      time_series.values[0].keys.each do |k|
+        key_sym = k.downcase.gsub(/[0-9.]/, "").lstrip.gsub(" ", "_").to_sym
         series[key_sym] = []
-        convert_key[key] = key_sym
+        convert_key[k] = key_sym
       end
       time_series.each do |time, ts_hash|
-        ts_hash.each do |key, value|
-          series[convert_key[key]] << [time, value]
+        ts_hash.each do |k, value|
+          series[convert_key[k]] << [time, value]
         end
       end
       series.keys.each do |key_sym|

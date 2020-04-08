@@ -6,6 +6,8 @@ module Alphavantage
       datatype: "json"
       check_argument([true, false], verbose, "verbose")
       @client = return_client(key, verbose)
+      from = from.symbol if from.is_a?(Alphavantage::Crypto)
+      to = to.symbol     if to.is_a?(Alphavantage::Crypto)
       @from = from
       @to = to
       check_argument(["json", "csv"], datatype, "datatype")

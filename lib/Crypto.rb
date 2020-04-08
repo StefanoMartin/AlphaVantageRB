@@ -18,6 +18,11 @@ module Alphavantage
       @datatype = datatype
     end
 
+    def rating
+      url = "function=CRYPTO_RATING&symbol=#{@symbol}"
+      return open_struct(url, "Crypto Rating (FCAS)")
+    end
+
     def timeseries type: "daily", market: @market, file: nil, datatype: @datatype
       Alphavantage::Crypto_Timeseries.new type: type, market: market,
         symbol: @symbol, datatype: datatype, file: file, key: @client

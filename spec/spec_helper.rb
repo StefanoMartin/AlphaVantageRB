@@ -4,7 +4,7 @@ require "yaml"
 require "openssl"
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 require "alphavantagerb"
-# require_relative File.expand_path('../../lib/alphavantagerb', __FILE__)
+# require_relative "../lib/alphavantagerb"
 
 RSpec.configure do |config|
 	config.color = true

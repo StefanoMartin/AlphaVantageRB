@@ -22,7 +22,7 @@ describe Alphavantage::Crypto do
         bool << "error"
       end
       stock.datatype = "csv"
-      bool <<stock.datatype
+      bool << stock.datatype
       stock.datatype = "json"
       expect(bool).to eq ["json", "error", "csv"]
     end
@@ -31,6 +31,12 @@ describe Alphavantage::Crypto do
       stock = @client.crypto symbol: "BTC", market: "DKK"
       timeseries = stock.timeseries
       expect(timeseries.class).to eq Alphavantage::Crypto_Timeseries
+    end
+
+    it "can check its rating" do
+      stock = @client.crypto symbol: "BTC", market: "DKK"
+      rating = stock.rating
+      expect(rating.symbol).to eq "BTC"
     end
   end
 end

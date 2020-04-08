@@ -1,7 +1,7 @@
 AlphavantageRB [![Gem Version](https://badge.fury.io/rb/alphavantagerb.svg)](https://badge.fury.io/rb/alphavantagerb)
 =========================================================
 
-Last update: 7/4/2020
+Last update: 8/4/2020
 
 [Alpha Vantage](https://www.alphavantage.co/) is a great API for retrieving Stock
 market data in JSON or CSV format.
@@ -736,6 +736,7 @@ These two creation commands are equivalent:
 ``` ruby
 crypto = client.crypto symbol: "BTC", market: "DKK"
 crypto = Alphavantage::Crypto.new symbol: "BTC", market: "DKK", key: "YOURKEY"
+crypto.rating # Retrieve crypto ratings instance
 ```
 
 Note that the initialization owns different entry:
@@ -832,8 +833,8 @@ exchange = Alphavantage::Exchange.new from: "USD", to: "DKK", key: "YOURKEY"
 
 Note that the initialization owns different entry:
 
-* from: input currency you want to check the value
-* to: output currency you want to see the value
+* from: input currency you want to check the value (can be a crypto currency)
+* to: output currency you want to see the value (can be a crypto currency)
 * symbol: it is a string that denote the stock you want to retrieve.
 * key: authentication key. This value cannot be setup if you are initializing a Stock class from a client
 * verbose: used to see the request to Alpha Vantage (default false). This value cannot be setup if you are initializing a timeseries from a stock

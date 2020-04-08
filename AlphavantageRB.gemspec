@@ -3,7 +3,7 @@
 
 Gem::Specification.new do |s|
   s.name        = "alphavantagerb"
-  s.version	    = "1.3.3"
+  s.version	    = "1.4.0"
   s.authors     = ["Stefano Martin"]
   s.email       = ["stefano.martin87@gmail.com"]
   s.homepage    = "https://github.com/StefanoMartin/AlphaVantageRB"

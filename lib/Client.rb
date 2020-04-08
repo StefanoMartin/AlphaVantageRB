@@ -26,6 +26,7 @@ module Alphavantage
       end
       data = response.body
       begin
+        puts data if @verbose
         data = JSON.parse(data)
       rescue StandardError => e
         raise Alphavantage::Error.new message: "Parsing failed",
