@@ -30,7 +30,7 @@ Since AlphaVantage does not permit more than 5 request for minutes, many of your
 
 ## Thanks
 
-Thank you to mruegenberg for his pull request.
+Thanks to mruegenberg for his pull request.
 
 ## Classes
 
