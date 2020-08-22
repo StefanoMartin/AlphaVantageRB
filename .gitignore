@@ -1,3 +1,4 @@
 spec/config.yml
 *.lock
 *.gem
+.idea

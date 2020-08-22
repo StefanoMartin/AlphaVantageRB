@@ -16,6 +16,10 @@ module Alphavantage
       @datatype = datatype
     end
 
+    def fundamental_data datatype: @datatype, file: nil
+      Alphavantage::Fundamental_Data.new symbol: @symbol, key: @client, datatype: datatype
+    end
+
     def quote file: nil, datatype: @datatype
       check_datatype(datatype, file)
       url = "function=GLOBAL_QUOTE&symbol=#{symbol}"
