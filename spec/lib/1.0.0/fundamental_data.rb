@@ -15,9 +15,9 @@ describe Alphavantage::Fundamental_Data do
 
   context 'core methods' do
     let(:fd) { @client.fundamental_data symbol: "MSFT" }
+    let(:report_types) { ["annualReports", "quarterlyReports"] }
 
     it 'can retrieve an overview' do
-      # fd = @client.fundamental_data symbol: "MSFT"
       overview = fd.overview
       expect(overview.class).to eq(Hash)
       expected_keys = ["Symbol", "AssetType", "Name", "Description", "Exchange", "Currency",
@@ -52,9 +52,9 @@ describe Alphavantage::Fundamental_Data do
         income_statements = fd.income_statements
 
         expect(income_statements.class).to eq(Hash)
-        expect(income_statements.keys).to eq(["symbol", "annualReports", "quarterlyReports"])
+        expect(income_statements.keys).to eq(["symbol"] + report_types)
         expect(income_statements["symbol"]).to eq("MSFT")
-        ["annualReports", "quarterlyReports"].each do |period|
+        report_types.each do |period|
           income_statements[period].each do |report|
             expect(report.keys).to eq(expected_keys)
           end
@@ -104,9 +104,9 @@ describe Alphavantage::Fundamental_Data do
         balance_sheets = fd.balance_sheets
 
         expect(balance_sheets.class).to eq(Hash)
-        expect(balance_sheets.keys).to eq(["symbol", "annualReports", "quarterlyReports"])
+        expect(balance_sheets.keys).to eq(["symbol"] + report_types)
         expect(balance_sheets["symbol"]).to eq("MSFT")
-        ["annualReports", "quarterlyReports"].each do |period|
+        report_types.each do |period|
           balance_sheets[period].each do |report|
             expect(report.keys).to eq(expected_keys)
           end
@@ -150,9 +150,9 @@ describe Alphavantage::Fundamental_Data do
         cash_flow_statements = fd.cash_flow_statements
 
         expect(cash_flow_statements.class).to eq(Hash)
-        expect(cash_flow_statements.keys).to eq(["symbol", "annualReports", "quarterlyReports"])
+        expect(cash_flow_statements.keys).to eq(["symbol"] + report_types)
         expect(cash_flow_statements["symbol"]).to eq("MSFT")
-        ["annualReports", "quarterlyReports"].each do |period|
+        report_types.each do |period|
           cash_flow_statements[period].each do |report|
             expect(report.keys).to eq(expected_keys)
           end
