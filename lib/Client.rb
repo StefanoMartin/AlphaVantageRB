@@ -83,6 +83,10 @@ module Alphavantage
       Alphavantage::Crypto.new symbol: symbol, key: self, datatype: datatype, market: market
     end
 
+    def fundamental_data(symbol:, datatype: "json")
+      Alphavantage::Fundamental_Data.new symbol: symbol, key: self, datatype: datatype, verbose: verbose
+    end
+
     def sector
       Alphavantage::Sector.new key: self
     end

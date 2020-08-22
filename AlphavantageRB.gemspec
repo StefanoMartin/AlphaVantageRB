@@ -4,9 +4,9 @@
 Gem::Specification.new do |s|
   s.name        = "alphavantagerb"
   s.version	    = "1.5.0"
-  s.authors     = ["Tyler Haugen-Stanley"]
-  s.email       = ["tyler.mail.04@gmail.com"]
-  s.homepage    = "https://github.com/tylerhaugen-stanley/AlphaVantageRB"
+  s.authors     = ["Stefano Martin"]
+  s.email       = ["stefano.martin87@gmail.com"]
+  s.homepage    = "https://github.com/StefanoMartin/AlphaVantageRB"
   s.license     = "MIT"
   s.summary     = "A gem for Alpha Vantage"
   s.description = "A ruby wrapper for Alpha Vantage's HTTP API"

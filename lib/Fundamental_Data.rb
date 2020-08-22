@@ -12,15 +12,27 @@ module Alphavantage
       make_request(file: file, datatype: datatype, endpoint: 'OVERVIEW')
     end
 
-    def income_statement(file: nil, datatype: @datatype, period: :both)
-      make_request(file: file, datatype: datatype, endpoint: 'INCOME_STATEMENT')
+    def income_statements(file: nil, datatype: @datatype, period: :both)
+      payload = make_request(file: file, datatype: datatype, endpoint: 'INCOME_STATEMENT')
+
+      return quarterly(payload) if period == :quarterly
+      return annually(payload) if period == :annually
+      payload
     end
 
-    def balance_sheet(file: nil, datatype: @datatype, period: :both)
+    def balance_sheets(file: nil, datatype: @datatype, period: :both)
       payload = make_request(file: file, datatype: datatype, endpoint: 'BALANCE_SHEET')
 
       return quarterly(payload) if period == :quarterly
-      return annual(payload) if period == :annual
+      return annually(payload) if period == :annually
+      payload
+    end
+
+    def cash_flow_statements(file: nil, datatype: @datatype, period: :both)
+      payload = make_request(file: file, datatype: datatype, endpoint: 'CASH_FLOW')
+
+      return quarterly(payload) if period == :quarterly
+      return annually(payload) if period == :annually
       payload
     end
 
@@ -37,7 +49,7 @@ module Alphavantage
       payload['quarterlyReports']
     end
 
-    def annual(payload)
+    def annually(payload)
       payload['annualReports']
     end
   end

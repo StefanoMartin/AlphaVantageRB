@@ -12,6 +12,12 @@ describe Alphavantage::Stock do
       expect(stock.class).to eq Alphavantage::Stock
     end
 
+    it 'can create a new fundamental_data object from a stock object' do
+      stock = @client.stock symbol: "MSFT"
+      fd = stock.fundamental_data
+      expect(fd.class).to eq Alphavantage::Fundamental_Data
+    end
+
     it "can change datatype" do
       bool = []
       stock = @client.stock symbol: "MSFT"
@@ -22,7 +28,7 @@ describe Alphavantage::Stock do
         bool << "error"
       end
       stock.datatype = "csv"
-      bool <<stock.datatype
+      bool << stock.datatype
       stock.datatype = "json"
       expect(bool).to eq ["json", "error", "csv"]
     end
