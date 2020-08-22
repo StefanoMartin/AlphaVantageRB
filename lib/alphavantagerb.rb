@@ -14,4 +14,3 @@ require_relative "Crypto_Timeseries"
 require_relative "Sector"
 require_relative "Client"
 require_relative "Fundamental_Data"
-
