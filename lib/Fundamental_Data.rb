@@ -3,37 +3,32 @@ module Alphavantage
     include HelperFunctions
 
     def initialize(symbol:,  datatype: "json", key:, verbose: false)
+      check_argument([true, false], verbose, "verbose")
       @client = return_client(key, verbose)
       @symbol = symbol
       @datatype = datatype
     end
 
     def overview(file: nil, datatype: @datatype)
-      make_request(file: file, datatype: datatype, endpoint: 'OVERVIEW')
+      make_request(file: file, datatype: datatype, endpoint: Endpoints::OVERVIEW)
     end
 
     def income_statements(file: nil, datatype: @datatype, period: :both)
-      payload = make_request(file: file, datatype: datatype, endpoint: 'INCOME_STATEMENT')
+      payload = make_request(file: file, datatype: datatype, endpoint: Endpoints::INCOME_STATEMENT)
 
-      return quarterly(payload) if period == :quarterly
-      return annually(payload) if period == :annually
-      payload
+      extract_period_data(payload, period)
     end
 
     def balance_sheets(file: nil, datatype: @datatype, period: :both)
-      payload = make_request(file: file, datatype: datatype, endpoint: 'BALANCE_SHEET')
+      payload = make_request(file: file, datatype: datatype, endpoint: Endpoints::BALANCE_SHEET)
 
-      return quarterly(payload) if period == :quarterly
-      return annually(payload) if period == :annually
-      payload
+      extract_period_data(payload, period)
     end
 
     def cash_flow_statements(file: nil, datatype: @datatype, period: :both)
-      payload = make_request(file: file, datatype: datatype, endpoint: 'CASH_FLOW')
+      payload = make_request(file: file, datatype: datatype, endpoint: Endpoints::CASH_FLOW)
 
-      return quarterly(payload) if period == :quarterly
-      return annually(payload) if period == :annually
-      payload
+      extract_period_data(payload, period)
     end
 
     private
@@ -43,6 +38,12 @@ module Alphavantage
       url = "function=#{endpoint}&symbol=#{@symbol}"
       return @client.download(url, file) if datatype == "csv"
       @client.request(url)
+    end
+
+    def extract_period_data(payload, period)
+      return quarterly(payload) if period == :quarterly
+      return annually(payload) if period == :annually
+      payload # Return both periods in one hash
     end
 
     def quarterly(payload)

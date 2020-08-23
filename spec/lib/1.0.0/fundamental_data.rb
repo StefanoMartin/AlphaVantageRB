@@ -11,6 +11,11 @@ describe Alphavantage::Fundamental_Data do
       fd = @client.fundamental_data symbol: "MSFT"
       expect(fd.class).to eq Alphavantage::Fundamental_Data
     end
+
+    it 'will error if verbose is not a boolean' do
+      subject { @client.fundamental_data symbol: "MSFT", verbose: "not a bool" }
+      expect{subject}.to raise{Alphavantage::Error}
+    end
   end
 
   context 'core methods' do

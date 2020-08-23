@@ -39,6 +39,7 @@ AlphavantateRB has the following classes:
 * [Alphavantage::Client](#Client): to manage the credentials to contact Alpha
   Vantage
 * [Alphavantage::Stock](#Stock): to create a stock class
+* [Alphavantage::Fundamental_Data](#Fundamental_Data): to retrieve financial data of a stock
 * [Alphavantage::Timeseries](#Timeseries): to retrieve historical data of a stock
 * [Alphavantage::Indicator](#Indicator): to use some technical indicator of a stock
 * [Alphavantage::Crypto](#Crypto): to create a crypto currency class
@@ -141,6 +142,31 @@ stock_quote.latest_trading_day
 stock_quote.previous_close
 stock_quote.change
 stock_quote.change_percent
+```
+
+<a name="Fundamental_Data"></a>
+## Alphavantage::Fundamental_Data
+This class returns financial information about an individual stock
+
+To create a new Fundamental_Data class you can use a client or you can create it directly.
+These two creation commands are equivalent:
+
+``` ruby
+fundamental_data = client.fundamental_data
+fundamental_data = Alphavantage::Fundamental_Data.new key: "YOURKEY"
+```
+
+Note that the initialization owns different entries:
+
+* key: authentication key.
+
+Specific information from Fundamental_Data can be retrieved using the following methods:
+
+``` ruby
+  fundamental_data.overview
+  fundamental_data.balance_sheets
+  fundamental_data.income_statements
+  fundamental_data.cash_flow
 ```
 
 <a name="Timeseries"></a>
