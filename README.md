@@ -148,17 +148,22 @@ stock_quote.change_percent
 ## Alphavantage::Fundamental_Data
 This class returns financial information about an individual stock
 
-To create a new Fundamental_Data class you can use a client or you can create it directly.
-These two creation commands are equivalent:
+To create a new Fundamental_Data class you can use a client object, a stock object, or you can create it directly.
+These creation commands are equivalent:
 
 ``` ruby
-fundamental_data = client.fundamental_data
-fundamental_data = Alphavantage::Fundamental_Data.new key: "YOURKEY"
+fundamental_data = client.fundamental_data symbol: "MSFT"
+fundamental_data = stock.fundamental_data
+fundamental_data = Alphavantage::Fundamental_Data.new symbol: "MSFT", key: "YOURKEY"
 ```
 
 Note that the initialization owns different entries:
 
+* symbol: it is a string that denote the stock you want to retrieve. This value cannot be setup if you are initializing a fundamental_data object from a stock
 * key: authentication key.
+* verbose: used to see the request to Alpha Vantage (default false). This value cannot be setup if you are initializing a fundamental_data object from a stock
+* datatype: it can be "json" or "csv" (default "json")
+* file: path where a csv file should be saved (default "nil")
 
 Specific information from Fundamental_Data can be retrieved using the following methods:
 
