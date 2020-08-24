@@ -10,22 +10,26 @@ module Alphavantage
     end
 
     def overview(file: nil, datatype: @datatype)
+      check_argument(["json", "csv"], datatype, "datatype")
       make_request(file: file, datatype: datatype, endpoint: Endpoints::OVERVIEW)
     end
 
     def income_statements(file: nil, datatype: @datatype, period: :both)
+      check_argument([:both, :quarterly, :annually], period, "period")
       payload = make_request(file: file, datatype: datatype, endpoint: Endpoints::INCOME_STATEMENT)
 
       extract_period_data(payload, period)
     end
 
     def balance_sheets(file: nil, datatype: @datatype, period: :both)
+      check_argument([:both, :quarterly, :annually], period, "period")
       payload = make_request(file: file, datatype: datatype, endpoint: Endpoints::BALANCE_SHEET)
 
       extract_period_data(payload, period)
     end
 
     def cash_flow_statements(file: nil, datatype: @datatype, period: :both)
+      check_argument([:both, :quarterly, :annually], period, "period")
       payload = make_request(file: file, datatype: datatype, endpoint: Endpoints::CASH_FLOW)
 
       extract_period_data(payload, period)
