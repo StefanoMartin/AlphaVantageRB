@@ -45,5 +45,10 @@ describe Alphavantage::Client do
       sector = @client.sector
       expect(sector.class).to eq Alphavantage::Sector
     end
+
+    it "can create a new fundamental_data object from a client" do
+      fd = @client.fundamental_data symbol: "MSFT"
+      expect(fd.class).to eq Alphavantage::Fundamental_Data
+    end
   end
 end
