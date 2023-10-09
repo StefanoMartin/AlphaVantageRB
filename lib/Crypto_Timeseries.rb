@@ -3,14 +3,22 @@ module Alphavantage
     include HelperFunctions
 
     def initialize type: "daily", market:, symbol:, datatype: "json", file: nil,
-      key:, verbose: false
+      key:, verbose: false, interval: nil
       check_argument([true, false], verbose, "verbose")
       @client = return_client(key, verbose)
       check_argument(["json", "csv"], datatype, "datatype")
       check_datatype(datatype, file)
-
-      @selected_time_series = which_series(type, "DIGITAL_CURRENCY")
-      url = "function=#{@selected_time_series}&symbol=#{symbol}&market=#{market}"
+      if type == "intraday"
+        interval ||= "1min"
+        check_argument(["1min", "5min", "15min", "30min", "60min"], interval, "interval")
+        interval = "&interval=#{interval}"
+        @selected_time_series = "CRYPTO_INTRADAY"
+      else
+        check_argument([nil], interval, "interval")
+        interval = ""
+        @selected_time_series = which_series(type, "DIGITAL_CURRENCY")
+      end
+      url = "function=#{@selected_time_series}&symbol=#{symbol}&market=#{market}#{interval}"
       return @client.download(url, file) if datatype == "csv"
       @output = @client.request(url)
       metadata = @output.dig("Meta Data") || {}
